@@ -9,13 +9,13 @@
           <router-link class="link" :to="{name: 'home'}">Strona Domowa</router-link>
         </li>
         <li>
-          <router-link class="link" :to="{name: ''}">Zestawienia Pociągów</router-link>
+          <router-link class="link" :to="{name: 'timetable'}">Tablice Informacyjne</router-link>
         </li>
         <li>
           <router-link class="link" :to="{name: ''}">Tablice Opóźnień</router-link>
         </li>
         <li>
-          <router-link class="link" :to="{name: ''}">Rozkład Jazdy</router-link>
+          <router-link class="link" :to="{name: ''}">Zestawienia Pociągów</router-link>
         </li>
       </ul>
       <div class="icon">
@@ -27,13 +27,13 @@
             <router-link class="link" :to="{name: ''}">Strona Domowa</router-link>
           </li>
           <li>
-            <router-link class="link" :to="{name: ''}">Zestawienia</router-link>
+            <router-link class="link" :to="{name: ''}">Tablice Informacyjne</router-link>
           </li>
           <li>
-            <router-link class="link" :to="{name: ''}">Tablice</router-link>
+            <router-link class="link" :to="{name: ''}">Tablice Opóźnień</router-link>
           </li>
           <li>
-            <router-link class="link" :to="{name: ''}">Kontakt</router-link>
+            <router-link class="link" :to="{name: ''}">Zestawienia Pociągów</router-link>
           </li>
         </ul>
       </transition>

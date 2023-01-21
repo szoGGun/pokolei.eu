@@ -1,6 +1,6 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
-import TrainsComponent from "@/components/TrainsComponent.vue";
 import HomePage from "@/views/HomePage.vue";
+import StationTimetable from "@/views/StationTimetable.vue";
 
 const routes = [
   {
@@ -9,9 +9,9 @@ const routes = [
     component: HomePage
   },
   {
-    path: '/trains',
-    name: 'trains',
-    component: TrainsComponent
+    path: '/timetable',
+    name: 'timetable',
+    component: StationTimetable
   }
 ]
 
