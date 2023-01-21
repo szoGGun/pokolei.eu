@@ -39,10 +39,12 @@
     <div id="about" class="bg-light p-3 p-md-5">
       <div class="row">
         <div class="col-lg">
-          <img src="../assets/icons/railway.png" height="120" class="m-4">
-          <h4 class="ml-md-4 mr-md-4 color-indigo">Rozkład Jazdy</h4>
+          <img src="../assets/icons/timetableRail.png" height="120" class="m-4">
+          <h4 class="ml-md-4 mr-md-4 color-indigo">Tablice Informacyjne</h4>
           <h5 class="ml-md-4 mr-md-4">
-            Nie wiesz, czy zdążysz na stację? Sprawdź rozkład jazdy pociągów.
+            Czekasz na stacji, ale najbliższa tablica informacyjna jest daleko lub nie ma jej wcale? Sprawdź najbliższe
+            odjazdy
+            z twojej stacji.
           </h5>
         </div>
         <div class="col-lg">
@@ -90,19 +92,20 @@
     </div>
 
     <!--FOOTER-->
-    <div id="footer" class="p-4">
-      <footer class="text-light p-4">
-        <small>Author of background photo: &copy; 2022, Franciszek. P</small>
-        <br>
-        <small>&copy; 2023, Przemysław Rutkowski, pokolei.eu</small>
-      </footer>
-    </div>
+    <Footer/>
   </div>
 </template>
 
 <script>
+import Footer from "@/components/Footer.vue";
+
 export default {
+  name: "HomePage",
+  components: {
+    Footer,
+  },
   data() {
+
   }
 }
 </script>
@@ -116,17 +119,11 @@ export default {
   background-size: cover;
 }
 
-
 #about {
   min-height: 40vh;
 }
 
 #contact {
-  background-color: #57AEAF;
-}
-
-#footer {
-  max-height: 13vh;
-  background-color: #252223;
+  background-color: #57AEAF !important;
 }
 </style>
