@@ -9,12 +9,11 @@ const client = createClient(pkpProfile, 'train-api');
 
 app.use(require('cookie-parser')());
 
-async function getNDepartures(station, n, showBusses) {
-    // Can only get 10 departures at a time, so we need to fetch them in batches
+async function getNDepartures(station, n) {
     let departures = [];
     for (let i = 0; i < n; i += 10) {
         try {
-            var batch = await client.departures(station, { products: {bus: showBusses, tram: showBusses}, results: 10, duration: 600, when: (departures.length === 0 ? new Date() : departures[departures.length - 1].when)});
+            var batch = await client.departures(station, { products: {bus: 1, tram: 1}, results: 10, duration: 600, when: (departures.length === 0 ? new Date() : departures[departures.length - 1].when)});
         } catch (e) {
             var batch = [{direction: "Station not found", platform: "N/A", line: {mode: "special"}, when: new Date(2069, 1, 1)}];
         }
@@ -22,7 +21,6 @@ async function getNDepartures(station, n, showBusses) {
             departures.push(departure);
         }
     }
-    // Delete any duplicate departures
     const uniqueDepartures = [];
     for (let departure of departures) {
         if (!uniqueDepartures.some(d => new Date(d.when).getTime() === new Date(departure.when).getTime())) {
@@ -38,18 +36,6 @@ app.get("/departures", async function (req, res) {
     } catch (error) {
         res.send(error);
         return false;
-    }
-
-    try {
-        var { bus } = req.query;
-    } catch (error) {
-        bus = false;
-    }
-
-    if (bus === 1 || bus === "1") {
-        bus = true;
-    } else {
-        bus = false;
     }
 
     // check if station and amount are set
@@ -71,10 +57,10 @@ app.get("/departures", async function (req, res) {
         res.cookie("stationName", station, { maxAge: 10000, sameSite: true });
     }
 
-    console.log(String("New request for: " + station).padEnd(30) + "\tBusses: " + bus);
+    console.log(String("New request for: " + station).padEnd(30));
     client.locations(station).then((data) => {
         var stationID = data[0].id;
-        getNDepartures(stationID, amount, bus).then((departures) => {
+        getNDepartures(stationID, amount).then((departures) => {
             res.send(departures);
         });
     });
