@@ -12,7 +12,7 @@
           <router-link class="link" :to="{name: 'timetable'}">Tablice Informacyjne</router-link>
         </li>
         <li>
-          <router-link class="link" :to="{name: ''}">Tablice Opóźnień</router-link>
+          <router-link class="link" :to="{name: 'delays'}">Historia Opóźnień</router-link>
         </li>
         <li>
           <router-link class="link" :to="{name: ''}">Zestawienia Pociągów</router-link>
@@ -24,13 +24,13 @@
       <transition name="mobile-nav">
         <ul v-show="mobileNav" class="dropdown-nav">
           <li>
-            <router-link class="link" :to="{name: ''}">Strona Domowa</router-link>
+            <router-link class="link" :to="{name: 'home'}">Strona Domowa</router-link>
           </li>
           <li>
-            <router-link class="link" :to="{name: ''}">Tablice Informacyjne</router-link>
+            <router-link class="link" :to="{name: 'timetable'}">Tablice Informacyjne</router-link>
           </li>
           <li>
-            <router-link class="link" :to="{name: ''}">Tablice Opóźnień</router-link>
+            <router-link class="link" :to="{name: 'delays'}">Historia Opóźnień</router-link>
           </li>
           <li>
             <router-link class="link" :to="{name: ''}">Zestawienia Pociągów</router-link>
