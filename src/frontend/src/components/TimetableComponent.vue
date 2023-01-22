@@ -5,9 +5,7 @@
       <div id="stationInput" class="col-sm-4">
         <input type="text" v-model="stationName" class="form-control" placeholder="Wpisz nazwę stacji...">
       </div>
-      <div id="search" class="col-sm-6">
-        <button id="show-busses" class="btn btn-success mt-2 p-jc-center" @click="search()">Szukaj</button>
-      </div>
+      <button id="search-button" class="btn btn-success p-jc-center" @click="search()">Szukaj</button>
     </div>
     <div style="overflow-x:auto;">
       <table class="hud-table">
@@ -19,6 +17,7 @@
           <th>Peron/Platforma</th>
           <th>Przewoźnik</th>
           <th>Opóźnienie</th>
+          <th>Nazwa Pociągu</th>
         </tr>
         </thead>
         <tbody>
@@ -29,6 +28,7 @@
           <td>{{ departure.platform }}</td>
           <td>{{ departure.line.productName }}</td>
           <td>{{ formatTimeDifference(departure.plannedWhen, departure.when) }}</td>
+          <td v-for="remark in filterRemarks(departure)" :key="remark.code">{{remark.text}}</td>
         </tr>
         </tbody>
       </table>
@@ -60,7 +60,8 @@ export default {
       this.departures = await res.json();
     },
     filterRemarks(departure) {
-      return departure.remarks.filter(remark => remark.code === "ZN");
+      const filteredRemarks = departure.remarks.filter(remark => remark.code === "ZN");
+      return filteredRemarks.length > 0 ? filteredRemarks : " ";
     },
     formatDate(date) {
       const formattedDate = new Date(date);
@@ -143,7 +144,6 @@ td {
   font-size: 1.2em;
 }
 
-
 @media only screen and (max-width: 600px) {
   #clock {
     font-size: 1.5rem;
@@ -153,13 +153,6 @@ td {
 @media only screen and (max-width: 600px) {
   #stationInput {
     font-size: 1.5rem;
-  }
-}
-
-
-@media only screen and (max-width: 600px) {
-  #search {
-    width: 50%;
   }
 }
 </style>
