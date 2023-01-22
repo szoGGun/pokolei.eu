@@ -28,7 +28,7 @@
           <td>{{ departure.platform }}</td>
           <td>{{ departure.line.productName }}</td>
           <td>{{ formatTimeDifference(departure.plannedWhen, departure.when) }}</td>
-          <td v-for="remark in filterRemarks(departure)" :key="remark.code">{{remark.text}}</td>
+          <td v-if="filterRemarks(departure)">{{filterRemarks(departure).text}}</td>
         </tr>
         </tbody>
       </table>
@@ -60,8 +60,7 @@ export default {
       this.departures = await res.json();
     },
     filterRemarks(departure) {
-      const filteredRemarks = departure.remarks.filter(remark => remark.code === "ZN");
-      return filteredRemarks.length > 0 ? filteredRemarks : " ";
+      return departure.remarks.find(remark => remark.code === "ZN") || " ";
     },
     formatDate(date) {
       const formattedDate = new Date(date);
