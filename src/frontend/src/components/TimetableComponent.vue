@@ -13,7 +13,8 @@
         <tr>
           <th>Czas</th>
           <th>Pociąg</th>
-          <th>Kierunek</th>
+          <th v-if="this.endpoint === 'arrivals'">Ze stacji</th>
+          <th v-else>Do stacji</th>
           <th>Peron/Platforma</th>
           <th>Przewoźnik</th>
           <th>Opóźnienie</th>
@@ -21,14 +22,15 @@
         </tr>
         </thead>
         <tbody>
-        <tr v-for="departure in departures" :key="departure.id">
-          <td>{{ formatDate(departure.when) }}</td>
-          <td>{{ departure.line.name }}</td>
-          <td>{{ departure.direction }}</td>
-          <td>{{ departure.platform }}</td>
-          <td>{{ departure.line.productName }}</td>
-          <td>{{ formatTimeDifference(departure.plannedWhen, departure.when) }}</td>
-          <td v-if="filterRemarks(departure)">{{filterRemarks(departure).text}}</td>
+        <tr v-for="train in trains" :key="train.id">
+          <td>{{ formatDate(train.when) }}</td>
+          <td>{{ train.line.name }}</td>
+          <td v-if="this.endpoint === 'arrivals'">{{train.provenance}}</td>
+          <td v-else>{{ train.direction }}</td>
+          <td>{{ train.platform }}</td>
+          <td>{{ train.line.productName }}</td>
+          <td>{{ formatTimeDifference(train.plannedWhen, train.when) }}</td>
+          <td v-if="filterRemarks(train)">{{filterRemarks(train).text}}</td>
         </tr>
         </tbody>
       </table>
@@ -38,9 +40,15 @@
 
 <script>
 export default {
+  props: {
+    endpoint: {
+      type: String,
+      required: true
+    },
+  },
   data() {
     return {
-      departures: [],
+      trains: [],
       stationName: "",
       currentTime: "",
     }
@@ -56,11 +64,11 @@ export default {
   },
   methods: {
     async search() {
-      const res = await fetch("http://localhost:3080/departures/?station=" + this.stationName + "&amount=30");
-      this.departures = await res.json();
+      const res = await fetch("http://localhost:3080/" + this.endpoint + "/?station=" + this.stationName + "&amount=30");
+      this.trains = await res.json();
     },
-    filterRemarks(departure) {
-      return departure.remarks.find(remark => remark.code === "ZN") || " ";
+    filterRemarks(train) {
+      return train.remarks.find(remark => remark.code === "ZN") || " ";
     },
     formatDate(date) {
       const formattedDate = new Date(date);

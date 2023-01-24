@@ -5,7 +5,7 @@
         <div class="col-lg-6 my-auto pt-4">
             <div class="row p-5 mt-5">
             <div class="container pt-5 border p-md-5 mt-5 bg-white rounded shadow">
-              <h1 class="ml-md-4 mr-md-4 p-3">Tablice Informacyjne</h1>
+              <h1 class="ml-md-4 mr-md-4 p-3">Tablica Odjazdów</h1>
               <h5 class="ml-md-4 mr-md-4 p-4">
                 Szukasz łatwego sposobu na sprawdzenie jakie pociągi odjeżdżają z twojej stacji?
                 Po prostu wpisz w pole poniżej nazwę stacji, która Cię interesuje, a my wyświetlimy wszystko czego Ci
@@ -19,9 +19,7 @@
     </div>
 
 
-    <TimetableComponent/>
-
-
+    <TimetableComponent endpoint="departures"/>
     <Footer/>
   </div>
 </template>
@@ -31,7 +29,7 @@ import Footer from "@/components/Footer.vue"
 import TimetableComponent from "@/components/TimetableComponent.vue";
 
 export default {
-  name: "StationTimetable",
+  name: "DeparturesTimetable",
   components: {
     Footer,
     TimetableComponent,

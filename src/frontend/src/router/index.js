@@ -1,7 +1,7 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
 import HomePage from "@/views/HomePage.vue";
-import StationTimetable from "@/views/StationTimetable.vue";
-import DelaysHistory from "@/views/DelaysHistory.vue";
+import DeparturesTimetable from "@/views/DeparturesTimetable.vue";
+import ArrivalsTimetable from "@/views/ArrivalsTimetable.vue";
 
 const routes = [
   {
@@ -10,14 +10,14 @@ const routes = [
     component: HomePage
   },
   {
-    path: '/timetable',
-    name: 'timetable',
-    component: StationTimetable
+    path: '/departures',
+    name: 'departures',
+    component: DeparturesTimetable
   },
   {
-    path: '/delays',
-    name: 'delays',
-    component: DelaysHistory
+    path: '/arrivals',
+    name: 'arrivals',
+    component: ArrivalsTimetable
   }
 ]
 

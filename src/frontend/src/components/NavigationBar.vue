@@ -9,10 +9,10 @@
           <router-link class="link" :to="{name: 'home'}">Strona Domowa</router-link>
         </li>
         <li>
-          <router-link class="link" :to="{name: 'timetable'}">Tablice Informacyjne</router-link>
+          <router-link class="link" :to="{name: 'arrivals'}">Tablica Przyjazdów</router-link>
         </li>
         <li>
-          <router-link class="link" :to="{name: 'delays'}">Historia Opóźnień</router-link>
+          <router-link class="link" :to="{name: 'departures'}">Tablica Odjazdów</router-link>
         </li>
         <li>
           <router-link class="link" :to="{name: ''}">Zestawienia Pociągów</router-link>
@@ -27,10 +27,10 @@
             <router-link class="link" :to="{name: 'home'}">Strona Domowa</router-link>
           </li>
           <li>
-            <router-link class="link" :to="{name: 'timetable'}">Tablice Informacyjne</router-link>
+            <router-link class="link" :to="{name: 'arrivals'}">Tablica Przyjazdów</router-link>
           </li>
           <li>
-            <router-link class="link" :to="{name: 'delays'}">Historia Opóźnień</router-link>
+            <router-link class="link" :to="{name: 'departures'}">Tablica Odjazdów</router-link>
           </li>
           <li>
             <router-link class="link" :to="{name: ''}">Zestawienia Pociągów</router-link>
