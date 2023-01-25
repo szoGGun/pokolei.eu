@@ -38,7 +38,7 @@ export default {
 <style scoped>
 
 #info {
-  background: linear-gradient(0deg, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.9)), url('../assets/timetable.jpg') no-repeat center center;
+  background: linear-gradient(0deg, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.9)), url('../assets/arrivals.jpeg') no-repeat center center;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
