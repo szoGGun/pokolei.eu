@@ -3,6 +3,11 @@ package eu.przemyslawrutkowski.pokolei.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
+import java.util.HashSet;
+import java.util.Set;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -14,22 +19,35 @@ public class Train {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private long trainId;
 
-    private String brand;
-
-    @Column(name = "train_number", nullable = false)
+    @NotBlank
+    @Size(max = 30)
     private String trainNumber;
 
-    @Column(nullable = false)
-    private String name;
+    @Size(max = 30)
+    private String trainName;
 
-    @Column(nullable = false)
+    @NotBlank
+    @Size(max = 200)
     private String route;
 
-    @Column(name = "running_dates", nullable = false)
+    @NotBlank
+    @Size(max = 20)
     private String runningDates;
 
-    @Column(nullable = false)
-    private String carriers;
+    @Size(max = 200)
+    private String additionalInfo;
+
+    @ManyToMany
+    @JoinTable(name = "train_car",
+            joinColumns = @JoinColumn(name = "train_id"),
+            inverseJoinColumns = @JoinColumn(name = "car_id"))
+    private Set<Car> cars = new HashSet<>();
+
+    @ManyToMany
+    @JoinTable(name = "train_locomotive",
+            joinColumns = @JoinColumn(name = "train_id"),
+            inverseJoinColumns = @JoinColumn(name = "locomotive_id"))
+    private Set<Locomotive> locomotives = new HashSet<>();
 }

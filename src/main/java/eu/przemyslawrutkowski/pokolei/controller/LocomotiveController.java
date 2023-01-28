@@ -1,7 +1,7 @@
 package eu.przemyslawrutkowski.pokolei.controller;
 
-import eu.przemyslawrutkowski.pokolei.entity.Train;
-import eu.przemyslawrutkowski.pokolei.repository.TrainRepository;
+import eu.przemyslawrutkowski.pokolei.entity.Locomotive;
+import eu.przemyslawrutkowski.pokolei.repository.LocomotiveRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,12 +14,12 @@ import java.util.List;
 @AllArgsConstructor
 @RequestMapping("/api")
 @CrossOrigin("http://localhost:8081/")
-public class TrainController {
+public class LocomotiveController {
 
-    private final TrainRepository trainRepository;
+    private final LocomotiveRepository locomotiveRepository;
 
-    @GetMapping("/trains")
-    public List<Train> getAllTrains() {
-        return trainRepository.findAll();
+    @GetMapping("/locomotives")
+    public List<Locomotive> getAllLocomotives() {
+        return locomotiveRepository.findAll();
     }
 }
