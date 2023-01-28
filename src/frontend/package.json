@@ -20,8 +20,10 @@
     "font-awesome": "^4.7.0",
     "hafas-client": "^5.22.1",
     "node-fetch": "^3.3.0",
+    "vee-validate": "^4.7.3",
     "vue": "^3.2.13",
-    "vue-router": "^4.0.13"
+    "vue-router": "^4.0.13",
+    "yup": "^0.32.11"
   },
   "devDependencies": {
     "@babel/core": "^7.12.16",
