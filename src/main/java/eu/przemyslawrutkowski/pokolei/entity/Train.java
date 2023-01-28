@@ -6,6 +6,7 @@ import lombok.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Getter
@@ -22,32 +23,21 @@ public class Train {
     private long trainId;
 
     @NotBlank
-    @Size(max = 30)
     private String trainNumber;
 
-    @Size(max = 30)
     private String trainName;
 
     @NotBlank
-    @Size(max = 200)
     private String route;
 
     @NotBlank
-    @Size(max = 20)
     private String runningDates;
 
-    @Size(max = 200)
     private String additionalInfo;
 
-    @ManyToMany
-    @JoinTable(name = "train_car",
-            joinColumns = @JoinColumn(name = "train_id"),
-            inverseJoinColumns = @JoinColumn(name = "car_id"))
-    private Set<Car> cars = new HashSet<>();
+    @OneToMany(mappedBy = "train", cascade = CascadeType.ALL)
+    private List<TrainCarOrder> trainCarOrders;
 
-    @ManyToMany
-    @JoinTable(name = "train_locomotive",
-            joinColumns = @JoinColumn(name = "train_id"),
-            inverseJoinColumns = @JoinColumn(name = "locomotive_id"))
-    private Set<Locomotive> locomotives = new HashSet<>();
+    @OneToMany(mappedBy = "train", cascade = CascadeType.ALL)
+    private List<TrainLocomotiveOrder> trainLocomotiveOrders;
 }

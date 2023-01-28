@@ -5,9 +5,7 @@ import lombok.*;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
-import java.util.HashSet;
-import java.util.Set;
-
+import java.util.List;
 
 @Getter
 @Setter
@@ -34,6 +32,6 @@ public class Locomotive {
     @Size(max = 10)
     private String weight;
 
-    @ManyToMany(mappedBy = "locomotives")
-    private Set<Train> trains = new HashSet<>();
+    @OneToMany(mappedBy = "locomotive")
+    private List<TrainLocomotiveOrder> trainLocomotiveOrders;
 }

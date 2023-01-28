@@ -1,12 +1,12 @@
 package eu.przemyslawrutkowski.pokolei.entity;
 
+import eu.przemyslawrutkowski.pokolei.validator.ValidTravelClass;
 import jakarta.persistence.*;
 import lombok.*;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
 
 @Getter
 @Setter
@@ -34,31 +34,32 @@ public class Car {
 
     @NotBlank
     @Size(max = 1)
-    private Integer placesForBicycles;
+    private Boolean placesForBicycles;
 
     @NotBlank
     @Size(max = 1)
-    private String diningCar;
+    private Boolean diningCar;
 
     @NotBlank
     @Size(max = 1)
-    private Integer barCar;
+    private Boolean barCar;
 
     @NotBlank
+    @ValidTravelClass
     @Size(max = 1)
     private Integer travelClass;
 
     @NotBlank
     @Size(max = 1)
-    private Integer airConditioning;
+    private Boolean airConditioning;
 
     @NotBlank
     @Size(max = 1)
-    private Integer electricalOutlets;
+    private Boolean electricalOutlets;
 
     @NotBlank
     @Size(max = 1)
-    private Integer toilet;
+    private Boolean toilet;
 
     @NotBlank
     @Size(max = 200)
@@ -68,6 +69,6 @@ public class Car {
     @Size(max = 200)
     private String schemaLink;
 
-    @ManyToMany(mappedBy = "cars")
-    private Set<Train> trains = new HashSet<>();
+    @OneToMany(mappedBy = "car")
+    private List<TrainCarOrder> trainCarOrders;
 }
