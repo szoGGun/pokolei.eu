@@ -13,7 +13,7 @@ import java.util.List;
 @RestController
 @AllArgsConstructor
 @RequestMapping("/api")
-@CrossOrigin("http://localhost:8081/")
+@CrossOrigin("http://localhost:8080/")
 public class LocomotiveController {
 
     private final LocomotiveRepository locomotiveRepository;
