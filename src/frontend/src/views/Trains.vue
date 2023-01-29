@@ -1,0 +1,105 @@
+<template>
+  <div class="container-fluid m-0 p-0">
+
+    <div id="info" class="full-height p-5">
+      <div class="row pb-5 h-100 d-flex align-items-center justify-content-center">
+        <div class="col-lg-6 my-auto pt-4">
+          <div class="row p-5 mt-5">
+            <div class="container pt-5 border p-md-5 mt-5 bg-white rounded shadow">
+              <h1 class="ml-md-4 mr-md-4 p-3">Zestawienia pociągów</h1>
+              <h5 class="ml-md-4 mr-md-4 p-4">
+                Nie jesteś pewny w którym miejscu powinieneś usiąść w pociągu na który czekasz? A może nie wiesz który
+                w kolejności jest twój wagon? Nie martw się, pomożemy Ci w tym problemie. Wystarczy, że wpiszesz nazwę
+                pociągu, a my wyświetlimy wszystkie informacje, które Cię interesują.
+              </h5>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div id="trains-table" class="full-height p-5">
+      <h1 class="text-center">Lista zestawień pociągów</h1>
+      <div class="border shadow">
+        <div class="form-outline p-2 d-flex align-items-center bg-dark">
+          <label class="text-white">Szukaj:</label>
+          <input type="search" id="trainInput" v-model="this.inputValue" class="form-control" placeholder="Wpisz nazwę numer lub nazwę pociągu..." aria-label="Szukaj" @keyup="search"/>
+        </div>
+        <table class="table table-striped table-bordered">
+          <thead class="table-dark">
+          <tr>
+            <th>Numer</th>
+            <th>Nazwa pociągu</th>
+            <th>Trasa</th>
+            <th>Kursuje</th>
+            <th>Dodatkowe informacje</th>
+          </tr>
+
+          </thead>
+          <tbody>
+          <tr v-for="train in trains" v-bind:key="train.id" @click="goToTrainComposition(train.trainId)">
+            <td> {{ train.trainNumber }}</td>
+            <td> {{ train.trainName }}</td>
+            <td> {{ train.route }}</td>
+            <td> {{ train.runningDates }}</td>
+            <td> {{ train.additionalInfo }}</td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <Footer/>
+  </div>
+</template>
+<script>
+import Footer from "@/components/Footer.vue";
+
+export default {
+  components: {
+    Footer,
+  },
+
+  data() {
+    return {
+      trains: [],
+      inputValue: '',
+    }
+  },
+  created() {
+    this.search();
+  },
+  methods: {
+    async search() {
+      const res = await fetch(`http://localhost:3081/api/trains/search?searchTerm=${this.inputValue}`);
+      this.trains = await res.json();
+    },
+    goToTrainComposition(trainId) {
+      this.$router.push({ name: 'trainComposition', params: { id: trainId } });
+    }
+  }
+}
+</script>
+
+<style scoped>
+
+#info {
+  background: linear-gradient(0deg, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.9)), url('../assets/backgrounds/trains-list-bg.jpg') no-repeat center center;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+#trains-table {
+  background-color: #E5E5E5;
+}
+table {
+  background-color: #ffffff;
+  margin: 0;
+}
+label {
+  margin-left: 0.4rem;
+  margin-right: 0.8rem;
+  font-weight: bold;
+}
+</style>

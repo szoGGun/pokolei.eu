@@ -4,7 +4,7 @@ import DeparturesTimetable from "@/views/DeparturesTimetable.vue";
 import ArrivalsTimetable from "@/views/ArrivalsTimetable.vue";
 import AdminPanel from "@/views/AdminPanel.vue";
 import Login from "@/views/Login"
-import Trains from "@/components/Trains.vue";
+import Trains from "@/views/Trains.vue";
 
 const routes = [
   {

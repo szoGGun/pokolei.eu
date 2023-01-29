@@ -2,7 +2,7 @@
   <header :class="{'scrolled-nav': scrolledNav}">
     <nav>
       <div class="branding">
-        <img src='../assets/logo-no-background.png' alt="">
+        <img src='../assets/logo/logo-no-background.png' alt="">
       </div>
       <ul v-show="!mobile" class="navigation">
         <li>
@@ -15,7 +15,7 @@
           <router-link class="link" :to="{name: 'departures'}">Tablica Odjazdów</router-link>
         </li>
         <li>
-          <router-link class="link" :to="{name: ''}">Zestawienia Pociągów</router-link>
+          <router-link class="link" :to="{name: 'trains'}">Zestawienia Pociągów</router-link>
         </li>
       </ul>
       <div class="icon">
@@ -33,7 +33,7 @@
             <router-link class="link" :to="{name: 'departures'}">Tablica Odjazdów</router-link>
           </li>
           <li>
-            <router-link class="link" :to="{name: ''}">Zestawienia Pociągów</router-link>
+            <router-link class="link" :to="{name: 'trains'}">Zestawienia Pociągów</router-link>
           </li>
         </ul>
       </transition>
@@ -64,7 +64,6 @@ export default {
     toogleMobileNav() {
       this.mobileNav = !this.mobileNav
     },
-
     updateScroll(){
       const scrollPosition = window.scrollY;
       if(scrollPosition > 50) {
