@@ -1,6 +1,6 @@
 <template>
   <div class="app">
-    <NavigationBar v-if="$route.name !== 'admin' && $route.name !== 'login' && $route.name !== 'trains'"/>
+    <NavigationBar v-if="$route.name !== 'admin' && $route.name !== 'login'"/>
     <router-view/>
   </div>
 </template>
