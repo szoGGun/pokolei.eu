@@ -112,7 +112,7 @@ export default {
 
 <style lang="scss" scoped>
 #home-page {
-  background: linear-gradient(0deg, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.7)), url('../assets/bg-mt-test.jpg') no-repeat center center;
+  background: linear-gradient(0deg, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.7)), url('../assets/backgrounds/home-page-bg.jpg') no-repeat center center;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
