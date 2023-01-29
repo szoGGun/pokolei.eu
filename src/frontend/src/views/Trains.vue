@@ -20,7 +20,7 @@
 
 
     <div id="trains-table" class="full-height p-5">
-      <h1 class="text-center">Lista zestawień pociągów</h1>
+      <h1 id="headerTitle" class="text-center mb-3">Lista zestawień pociągów</h1>
       <div class="border shadow">
         <div class="form-outline p-2 d-flex align-items-center bg-dark">
           <label class="text-white">Szukaj:</label>
@@ -82,7 +82,6 @@ export default {
 </script>
 
 <style scoped>
-
 #info {
   background: linear-gradient(0deg, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.9)), url('../assets/backgrounds/trains-list-bg.jpg') no-repeat center center;
   -webkit-background-size: cover;
@@ -92,6 +91,9 @@ export default {
 }
 #trains-table {
   background-color: #E5E5E5;
+}
+#headerTitle {
+  font-weight: bold;
 }
 table {
   background-color: #ffffff;
