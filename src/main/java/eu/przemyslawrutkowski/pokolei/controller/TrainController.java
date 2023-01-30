@@ -11,7 +11,6 @@ import java.util.List;
 @RestController
 @AllArgsConstructor
 @RequestMapping("/api")
-@CrossOrigin("http://localhost:8080/")
 public class TrainController {
 
     private final TrainRepository trainRepository;
