@@ -8,6 +8,6 @@ CREATE TABLE train_locomotive_order
     FOREIGN KEY (locomotive_id) REFERENCES locomotives (locomotive_id)
 );
 INSERT INTO train_locomotive_order (train_id, locomotive_id, locomotive_order)
-VALUES (1, 1, 1),
+VALUES (1, 3, 1),
        (2, 2, 1),
        (3, 3, 1)

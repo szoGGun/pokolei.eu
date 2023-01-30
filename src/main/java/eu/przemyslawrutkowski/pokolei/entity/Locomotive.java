@@ -32,6 +32,10 @@ public class Locomotive {
     @Size(max = 10)
     private String weight;
 
+    @NotBlank
+    @Size(max = 200)
+    private String pictureLink;
+
     @OneToMany(mappedBy = "locomotive")
     private List<TrainLocomotiveOrder> trainLocomotiveOrders;
 }

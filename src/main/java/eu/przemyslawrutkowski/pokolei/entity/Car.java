@@ -44,7 +44,6 @@ public class Car {
     @Size(max = 1)
     private Boolean barCar;
 
-    @NotBlank
     @ValidTravelClass
     @Size(max = 1)
     private Integer travelClass;
@@ -65,7 +64,6 @@ public class Car {
     @Size(max = 200)
     private String pictureLink;
 
-    @NotBlank
     @Size(max = 200)
     private String schemaLink;
 
