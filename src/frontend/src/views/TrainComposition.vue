@@ -33,30 +33,39 @@
               <td>{{ car.carNumber }}</td>
               <td>{{ car.name }}</td>
               <td><img :src="getCarUrl(car.pictureLink)" alt=""/></td>
-                <td>
-                  <div class="image-container">
+              <td>
+                <div class="image-container">
+                  <img id="pictograms"
+                       v-if="getPictogramForTravelClass(car.travelClass)"
+                       :src="getPictogramForTravelClass(car.travelClass)"
+                       :title="getPictogramTitleForTravelClass(car.travelClass)"
+                       alt=""/>
+                  <div v-for="feature in features" :key="index + '-' + feature.name">
                     <img id="pictograms"
-                         v-if="getPictogramForTravelClass(car.travelClass)"
-                         :src="getPictogramForTravelClass(car.travelClass)"
-                         :title="getPictogramTitleForTravelClass(car.travelClass)"
-                         alt=""/>
-                    <div v-for="feature in features" :key="index + '-' + feature.name">
-                      <img id="pictograms"
-                           v-if="car[feature.name]"
-                           :src="getPictogramUrl(feature.pictogram)"
-                           :title="feature.title" alt=""/>
-                    </div>
+                         v-if="car[feature.name]"
+                         :src="getPictogramUrl(feature.pictogram)"
+                         :title="feature.title" alt=""/>
                   </div>
-                </td>
+                </div>
+              </td>
               <td>{{ car.numberOfSeats }}</td>
               <td style='font-size:80%'>{{ car.additionalInfo }}</td>
-              <td>x</td>
+              <td>
+                <div v-if="car.schemaLink">
+                  <img @click="toggleSchema(car.schemaLink, car.name)" id="pictograms"
+                       src="@/assets/pictograms/schema.svg" alt=""/>
+                </div>
+              </td>
             </tr>
             </tbody>
           </table>
         </div>
-        <a @click="showImage = !showImage">Show Image </a>
-        <img v-if="showImage" :src="require('@/assets/car-schemas/111A-20_B9nopuz.png')" alt=""/>
+        <div v-if="showImage" style="position:relative;">
+          <h5>Schemat dla wagonu: {{ this.carName }}</h5>
+          <button @click="closeSchema" type="button" class="btn-close" aria-label="Close"></button>
+          <img :src="schemaSrc" alt=""/>
+          <div class="-credit-card">Rysunki autorstwa (©): rysmichala</div>
+        </div>
       </div>
     </div>
   </div>
@@ -78,6 +87,8 @@ export default {
       cars: [],
       locomotives: [],
       showImage: false,
+      schemaSrc: '',
+      carName: '',
       features: [
         {name: "airConditioning", pictogram: "air-conditioning", title: "Klimatyzacja"},
         {name: "barCar", pictogram: "bar", title: "Wagon barowy"},
@@ -141,6 +152,23 @@ export default {
     },
     getPictogramUrl: function (pictogram) {
       return require(`../assets/pictograms/${pictogram}.svg`);
+    },
+    toggleSchema(schemaLink, name) {
+      if (this.schemaVisible) {
+        this.closeSchema();
+      } else {
+        this.showSchema(schemaLink, name);
+      }
+      this.schemaVisible = !this.schemaVisible;
+    },
+    showSchema(schemaLink, carName) {
+      this.carName = carName;
+      this.showImage = true;
+      this.schemaSrc = require(`@/assets/car-schemas/${schemaLink}`);
+    },
+    closeSchema() {
+      this.showImage = false;
+      this.schemaSrc = '';
     }
   },
   created() {
@@ -159,6 +187,10 @@ export default {
 table {
   border-collapse: collapse;
   border-spacing: 1em;
+}
+
+button {
+  position: absolute;
 }
 
 #pictograms {
