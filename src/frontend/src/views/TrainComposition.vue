@@ -14,8 +14,8 @@
               <th>Nazwa</th>
               <th>Wygląd</th>
               <th>Udogodnienia</th>
+              <th>Liczba siedzeń</th>
               <th>Dodatkowe informacje</th>
-              <th>Kolejność wagonu w składzie</th>
               <th>Schemat wagonu</th>
             </tr>
             </thead>
@@ -25,24 +25,31 @@
               <td>{{ locomotive.name }}</td>
               <td><img :src="getLocomotiveUrl(locomotive.pictureLink)" alt=""/></td>
               <td></td>
-              <td style='font-size:80%'>Prędkość: {{ locomotive.drivingSpeed }}, Waga:{{ locomotive.weight }}</td>
               <td></td>
+              <td style='font-size:80%'>Prędkość: {{ locomotive.drivingSpeed }}, Waga:{{ locomotive.weight }}</td>
               <td></td>
             </tr>
             <tr v-for="(car, index) in cars" :key="car.carId">
               <td>{{ car.carNumber }}</td>
               <td>{{ car.name }}</td>
               <td><img :src="getCarUrl(car.pictureLink)" alt=""/></td>
-              <td>
-                <div class="image-container">
-                  <div v-for="feature in features" :key="index + '-' + feature.name">
-                    <img id="pictograms" v-if="car[feature.name]" :src="getPictogramUrl(feature.pictogram)"
-                         :title="feature.title" alt=""/>
+                <td>
+                  <div class="image-container">
+                    <img id="pictograms"
+                         v-if="getPictogramForTravelClass(car.travelClass)"
+                         :src="getPictogramForTravelClass(car.travelClass)"
+                         :title="getPictogramTitleForTravelClass(car.travelClass)"
+                         alt=""/>
+                    <div v-for="feature in features" :key="index + '-' + feature.name">
+                      <img id="pictograms"
+                           v-if="car[feature.name]"
+                           :src="getPictogramUrl(feature.pictogram)"
+                           :title="feature.title" alt=""/>
+                    </div>
                   </div>
-                </div>
-              </td>
+                </td>
+              <td>{{ car.numberOfSeats }}</td>
               <td style='font-size:80%'>{{ car.additionalInfo }}</td>
-              <td>{{ car.order }}</td>
               <td>x</td>
             </tr>
             </tbody>
@@ -72,13 +79,17 @@ export default {
       locomotives: [],
       showImage: false,
       features: [
-        {name: "travelClass", pictogram: "2class", title: "Klasa podróży"},
-        {name: "placesForBicycles", pictogram: "bikes", title: "Miejsce dla rowerów"},
-        {name: "diningCar", pictogram: "restaurant", title: "Wagon restauracyjny"},
-        {name: "barCar", pictogram: "bar", title: "Wagon barowy"},
         {name: "airConditioning", pictogram: "air-conditioning", title: "Klimatyzacja"},
+        {name: "barCar", pictogram: "bar", title: "Wagon barowy"},
+        {name: "bicycles", pictogram: "bikes", title: "Miejsce dla rowerów"},
+        {name: "compartmentless", pictogram: "compartmentless-car", title: "Wagon bezprzedziałowy"},
+        {name: "diningCar", pictogram: "restaurant", title: "Wagon restauracyjny"},
+        {name: "disabledLift", pictogram: "disabled-lift", title: "Winda dla niepełnosprawnych"},
+        {name: "disabledSeats", pictogram: "disabled", title: "Miejsca dla niepełnosprawnych"},
         {name: "electricalOutlets", pictogram: "230V", title: "Gniazdka 230V"},
-        {name: "toilet", pictogram: "wc", title: "Toaleta"}
+        {name: "sleepingCar", pictogram: "sleeping-car", title: "Wagon sypialny"},
+        {name: "toilet", pictogram: "wc", title: "Toaleta"},
+        {name: "wifi", pictogram: "wi-fi", title: "WI-FI"}
       ]
     };
   },
@@ -102,6 +113,31 @@ export default {
     },
     getLocomotiveUrl: function (img) {
       return require(`../assets/locomotives/${img}`);
+    },
+    getPictogramForTravelClass(travelClass) {
+      if (!travelClass) return null;
+      switch (travelClass) {
+        case 1:
+          return this.getPictogramUrl('1class');
+        case 2:
+          return this.getPictogramUrl('2class');
+        case 3:
+          return this.getPictogramUrl('1-2class');
+        default:
+          return null;
+      }
+    },
+    getPictogramTitleForTravelClass(travelClass) {
+      switch (travelClass) {
+        case 1:
+          return '1 Klasa';
+        case 2:
+          return '2 Klasa';
+        case 3:
+          return '1-2 Klasa';
+        default:
+          return '';
+      }
     },
     getPictogramUrl: function (pictogram) {
       return require(`../assets/pictograms/${pictogram}.svg`);
