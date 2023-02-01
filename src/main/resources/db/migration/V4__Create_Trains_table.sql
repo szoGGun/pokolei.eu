@@ -5,7 +5,7 @@ CREATE TABLE trains
     train_name      VARCHAR(30),
     route           VARCHAR(500) NOT NULL,
     running_dates   VARCHAR(30)  NOT NULL,
-    additional_info VARCHAR(200)
+    additional_info VARCHAR
 );
 INSERT INTO trains (train_number, train_name, route, running_dates, additional_info)
 VALUES ('(100) 44000', 'IC Moravia', 'Wien Hbf 18:10 - Břeclav - Přerov - Ostrava hl.n. - Bohumin (21:15/21:27) - Chałupki - Racibórz - Gliwice - Katowice 23:02', 'Monday, Tuesday, Wednesday', 'Zmiana kierunku lub lokomotywy na stacjach: Wien Hbf'),
