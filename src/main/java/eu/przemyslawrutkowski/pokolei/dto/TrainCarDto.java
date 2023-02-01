@@ -12,17 +12,21 @@ public class TrainCarDto {
     private Integer number;
     private String name;
     private Integer numberOfSeats;
-    private Boolean placesForBicycles;
-    private Boolean diningCar;
-    private Boolean barCar;
     private Integer travelClass;
     private Boolean airConditioning;
+    private Boolean barCar;
+    private Boolean bicycles;
+    private Boolean compartmentless;
+    private Boolean diningCar;
+    private Boolean disabledLift;
+    private Boolean disabledSeats;
     private Boolean electricalOutlets;
+    private Boolean sleepingCar;
     private Boolean toilet;
+    private Boolean wifi;
     private String pictureLink;
     private String schemaLink;
     private int carNumber;
     private int order;
-
     private String additionalInfo;
 }

@@ -1,10 +1,10 @@
 package eu.przemyslawrutkowski.pokolei.entity;
 
-import eu.przemyslawrutkowski.pokolei.validator.ValidTravelClass;
 import jakarta.persistence.*;
 import lombok.*;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.List;
 
@@ -20,11 +20,11 @@ public class Car {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long carId;
 
-    @NotBlank
+    @NotNull
     @Size(max = 10)
     private Integer number;
 
-    @NotBlank
+    @NotNull
     @Size(max = 30)
     private String name;
 
@@ -32,40 +32,19 @@ public class Car {
     @Size(max = 3)
     private Integer numberOfSeats;
 
-    @NotBlank
-    @Size(max = 1)
-    private Boolean placesForBicycles;
-
-    @NotBlank
-    @Size(max = 1)
-    private Boolean diningCar;
-
-    @NotBlank
-    @Size(max = 1)
-    private Boolean barCar;
-
-    @ValidTravelClass
     @Size(max = 1)
     private Integer travelClass;
 
-    @NotBlank
-    @Size(max = 1)
-    private Boolean airConditioning;
-
-    @NotBlank
-    @Size(max = 1)
-    private Boolean electricalOutlets;
-
-    @NotBlank
-    @Size(max = 1)
-    private Boolean toilet;
-
-    @NotBlank
+    @NotNull
     @Size(max = 200)
     private String pictureLink;
 
     @Size(max = 200)
     private String schemaLink;
+
+    @OneToOne(fetch = FetchType.EAGER, optional = false)
+    @JoinColumn(name = "amenities_id", nullable = false)
+    private Amenities amenities;
 
     @OneToMany(mappedBy = "car")
     private List<TrainCarOrder> trainCarOrders;

@@ -2,9 +2,11 @@ package eu.przemyslawrutkowski.pokolei.controller;
 
 import eu.przemyslawrutkowski.pokolei.dto.TrainCarDto;
 import eu.przemyslawrutkowski.pokolei.dto.TrainLocomotiveDto;
+import eu.przemyslawrutkowski.pokolei.entity.Amenities;
 import eu.przemyslawrutkowski.pokolei.entity.Car;
 import eu.przemyslawrutkowski.pokolei.entity.Locomotive;
 import eu.przemyslawrutkowski.pokolei.entity.Train;
+import eu.przemyslawrutkowski.pokolei.repository.AmenitiesRepository;
 import eu.przemyslawrutkowski.pokolei.repository.TrainCarOrderRepository;
 import eu.przemyslawrutkowski.pokolei.repository.TrainLocomotiveOrderRepository;
 import eu.przemyslawrutkowski.pokolei.repository.TrainRepository;
@@ -24,6 +26,8 @@ public class TrainController {
     private final TrainCarOrderRepository trainCarOrderRepository;
 
     private final TrainLocomotiveOrderRepository trainLocomotiveOrderRepository;
+
+    private final AmenitiesRepository amenitiesRepository;
 
     @GetMapping("/trains")
     public List<Train> getAllTrains() {
@@ -51,10 +55,9 @@ public class TrainController {
             int order = (int) carAndOrder[1];
             int carNumber = (int) carAndOrder[2];
             String carAdditionalInfo = (String) carAndOrder[3];
-            cars.add(new TrainCarDto(car.getCarId(), car.getNumber(), car.getName(), car.getNumberOfSeats(),
-                    car.getPlacesForBicycles(), car.getDiningCar(), car.getBarCar(), car.getTravelClass(),
-                    car.getAirConditioning(), car.getElectricalOutlets(), car.getToilet(), car.getPictureLink(),
-                    car.getSchemaLink(), carNumber, order, carAdditionalInfo));
+            Long amenityId = car.getAmenities().getAmenityId();
+            Amenities amenities = amenitiesRepository.findAmenitiesByAmenityId(amenityId);
+            cars.add(createTrainCarDto(car, order, carNumber, carAdditionalInfo, amenities));
         }
         return cars;
     }
@@ -70,5 +73,13 @@ public class TrainController {
                     locomotive.getDrivingSpeed(), locomotive.getWeight(), locomotive.getPictureLink(), order));
         }
         return locomotives;
+    }
+
+    private TrainCarDto createTrainCarDto(Car car, int order, int carNumber, String carAdditionalInfo, Amenities amenities) {
+        return new TrainCarDto(car.getCarId(), car.getNumber(), car.getName(), car.getNumberOfSeats(),
+                car.getTravelClass(), amenities.getAirConditioning(),  amenities.getBarCar(), amenities.getBicycles(), amenities.getCompartmentless(), amenities.getDiningCar(),
+                amenities.getDisabledLift(), amenities.getDisabledSeats(), amenities.getElectricalOutlets(), amenities.getSleepingCar(),
+                amenities.getToilet(), amenities.getWifi(), car.getPictureLink(), car.getSchemaLink(), carNumber,
+                order, carAdditionalInfo);
     }
 }
