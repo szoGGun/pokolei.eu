@@ -18,6 +18,12 @@ public class TrainCarOrder {
     @JoinColumn(name = "car_id")
     private Car car;
 
+    @Column(name = "car_number", nullable = false)
+    private int carNumber;
+
     @Column(name = "car_order", nullable = false)
     private int carOrder;
+
+    @Column(name = "car_additional_info")
+    private String carAdditionalInfo;
 }

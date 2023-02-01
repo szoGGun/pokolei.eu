@@ -38,7 +38,7 @@
 
           </thead>
           <tbody>
-          <tr v-for="train in trains" v-bind:key="train.id" @click="goToTrainComposition(train.trainId)">
+          <tr v-for="train in trains" v-bind:key="train.trainId" @click="goToTrainComposition(train.trainId, train.trainNumber, train.trainName)">
             <td> {{ train.trainNumber }}</td>
             <td> {{ train.trainName }}</td>
             <td> {{ train.route }}</td>
@@ -74,8 +74,14 @@ export default {
       const res = await fetch(`http://localhost:3081/api/trains/search?searchTerm=${this.inputValue}`);
       this.trains = await res.json();
     },
-    goToTrainComposition(trainId) {
-      this.$router.push({ name: 'trainComposition', params: { id: trainId } });
+    goToTrainComposition(trainId, trainNumber, trainName) {
+      this.$router.push({
+        name: 'trainComposition',
+        params: {
+          trainId: trainId,
+          trainFullName: trainNumber + trainName,
+        }
+      });
     }
   }
 }
