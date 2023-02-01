@@ -17,7 +17,9 @@
     </div>
 
     <TimetableComponent endpoint="arrivals"/>
-    <Footer/>
+    <Footer>
+      <small>Autor zdjęcia w tle: (&copy;) 2023, Przemysław Zabawa</small>
+    </Footer>
   </div>
 </template>
 

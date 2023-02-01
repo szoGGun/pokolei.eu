@@ -49,7 +49,9 @@
         </table>
       </div>
     </div>
-    <Footer/>
+    <Footer>
+
+    </Footer>
   </div>
 </template>
 <script>

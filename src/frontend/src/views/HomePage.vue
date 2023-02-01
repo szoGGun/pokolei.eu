@@ -92,7 +92,9 @@
     </div>
 
     <!--FOOTER-->
-    <Footer/>
+    <Footer>
+      <small>Autor zdjęcia w tle: (&copy;) 2022, Franciszek. P</small>
+    </Footer>
   </div>
 </template>
 
