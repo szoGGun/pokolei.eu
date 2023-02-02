@@ -21,15 +21,13 @@ public class Car {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long carId;
 
-    @NotNull
     @Size(max = 10)
-    private Integer number;
+    private String carType;
 
     @NotNull
     @Size(max = 30)
     private String name;
 
-    @NotBlank
     @Size(max = 3)
     private Integer numberOfSeats;
 

@@ -9,7 +9,7 @@ import lombok.Setter;
 @AllArgsConstructor
 public class TrainCarDto {
     private Long carId;
-    private Integer number;
+    private String carType;
     private String name;
     private Integer numberOfSeats;
     private Integer travelClass;

@@ -76,7 +76,7 @@ public class TrainController {
     }
 
     private TrainCarDto createTrainCarDto(Car car, int order, int carNumber, String carAdditionalInfo, Amenities amenities) {
-        return new TrainCarDto(car.getCarId(), car.getNumber(), car.getName(), car.getNumberOfSeats(),
+        return new TrainCarDto(car.getCarId(), car.getCarType(), car.getName(), car.getNumberOfSeats(),
                 car.getTravelClass(), amenities.getAirConditioning(),  amenities.getBarCar(), amenities.getBicycles(), amenities.getCompartmentless(), amenities.getDiningCar(),
                 amenities.getDisabledLift(), amenities.getDisabledSeats(), amenities.getElectricalOutlets(), amenities.getSleepingCar(),
                 amenities.getToilet(), amenities.getWifi(), car.getPictureLink(), car.getSchemaLink(), carNumber,
