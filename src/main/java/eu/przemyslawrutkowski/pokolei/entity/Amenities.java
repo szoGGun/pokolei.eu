@@ -1,5 +1,6 @@
 package eu.przemyslawrutkowski.pokolei.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -63,6 +64,7 @@ public class Amenities {
     @Size(max = 1)
     private Boolean wifi;
 
+    @JsonBackReference
     @OneToOne(mappedBy = "amenities", cascade = CascadeType.ALL)
     private Car car;
 }

@@ -1,5 +1,6 @@
 package eu.przemyslawrutkowski.pokolei.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -42,6 +43,7 @@ public class Car {
     @Size(max = 200)
     private String schemaLink;
 
+    @JsonManagedReference
     @OneToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "amenities_id", nullable = false)
     private Amenities amenities;
