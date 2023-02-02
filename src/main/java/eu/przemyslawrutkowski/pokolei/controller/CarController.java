@@ -3,7 +3,6 @@ package eu.przemyslawrutkowski.pokolei.controller;
 import eu.przemyslawrutkowski.pokolei.entity.Car;
 import eu.przemyslawrutkowski.pokolei.repository.CarRepository;
 import lombok.AllArgsConstructor;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
