@@ -8,8 +8,8 @@ create table locomotives
 );
 
 INSERT INTO locomotives (name, driving_speed, weight, picture_link)
-VALUES ('EP09', '160 km/h', '455 t', 'Bmnopuvz-159A-a.gif'),
-       ('EP09', '130 km/h', '455 t', 'Bmnopuvz-159A-a.gif'),
+VALUES ('EP09', '160 km/h', '455 t', 'EP09-IC-b.gif'),
+       ('EP09', '130 km/h', '455 t', 'EP09-IC-b.gif'),
        ('EU07', '125 km/h', '275 t', 'EU07-IC-a.gif');
 
 

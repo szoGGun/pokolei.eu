@@ -9,5 +9,7 @@ CREATE TABLE train_locomotive_order
 );
 INSERT INTO train_locomotive_order (train_id, locomotive_id, locomotive_order)
 VALUES (1, 3, 1),
-       (2, 2, 1),
-       (3, 3, 1)
+       (2, 1, 1),
+       (2, 2, 2),
+       (3, 1, 1),
+       (3, 1, 2);
