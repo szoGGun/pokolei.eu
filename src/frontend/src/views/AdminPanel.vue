@@ -34,10 +34,6 @@ export default {
       this.panelType = panelType;
       this.showPanel = true;
     },
-    addCar(e) {
-      e.preventDefault();
-      // add car logic here
-    }
   }
 };
 </script>
