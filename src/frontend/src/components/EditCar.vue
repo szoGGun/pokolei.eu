@@ -98,20 +98,20 @@ export default {
     };
   },
   created() {
-    this.getCartData(this.selectedCarId).then(cartData => {
-      this.carType = cartData.carType;
-      this.name = cartData.name;
-      this.numberOfSeats = cartData.numberOfSeats;
-      this.travelClass = cartData.travelClass;
-      this.amenities = cartData.amenities;
+    this.getCarData(this.selectedCarId).then(carData => {
+      this.carType = carData.carType;
+      this.name = carData.name;
+      this.numberOfSeats = carData.numberOfSeats;
+      this.travelClass = carData.travelClass;
+      this.amenities = carData.amenities;
     });
   },
   methods: {
-    getCartData(selectedCarId) {
+    getCarData(selectedCarId) {
       return fetch(`http://localhost:3081/api/cars/get/${selectedCarId}`)
           .then(response => {
             if (!response.ok) {
-              throw new Error(`Failed to fetch cart with id: ${selectedCarId}`);
+              throw new Error(`Failed to fetch car with id: ${selectedCarId}`);
             }
             return response.json();
           })
@@ -151,12 +151,6 @@ export default {
 </script>
 
 <style scoped>
-
-.edit-car-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
 
 label {
   font-weight: bold;
