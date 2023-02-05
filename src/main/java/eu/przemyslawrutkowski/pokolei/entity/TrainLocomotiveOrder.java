@@ -11,7 +11,7 @@
         @Column(name = "train_locomotive_order_id")
         private long trainLocomotiveOrderId;
 
-        @ManyToOne
+        @ManyToOne(cascade = CascadeType.ALL)
         @JoinColumn(name = "train_id", nullable = false)
         private Train train;
 

@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.List;
@@ -42,7 +41,7 @@ public class Car {
     private String schemaLink;
 
     @JsonManagedReference
-    @OneToOne(fetch = FetchType.EAGER, optional = false)
+    @OneToOne(optional = false, cascade = CascadeType.ALL)
     @JoinColumn(name = "amenities_id", nullable = false)
     private Amenities amenities;
 

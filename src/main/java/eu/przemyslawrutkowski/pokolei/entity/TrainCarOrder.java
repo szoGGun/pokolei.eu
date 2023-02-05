@@ -10,7 +10,7 @@ public class TrainCarOrder {
     @Column(name = "train_car_order_id")
     private long trainCarOrderId;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "train_id")
     private Train train;
 
