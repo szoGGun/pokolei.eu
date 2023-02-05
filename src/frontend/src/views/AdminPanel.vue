@@ -1,26 +1,30 @@
 <template>
   <div>
     <div>
-      <button @click="displayPanel('cars')">Cars</button>
-      <button @click="displayPanel('locomotives')">Locomotives</button>
-      <button @click="displayPanel('trains')">Trains</button>
+      <button class="btn btn-dark" @click="displayPanel('cars')">Cars</button>
+      <button class="btn btn-dark" @click="displayPanel('locomotives')">Locomotives</button>
+      <button class="btn btn-dark" @click="displayPanel('trains')">Trains</button>
     </div>
 
     <div v-if="showPanel && panelType === 'cars'">
       <AdminPanelCar/>
     </div>
-    <div v-if="showPanel && panelType === 'trains'">
-      <!-- similar to cars section -->
+    <div v-if="showPanel && panelType === 'locomotives'">
+      <AdminPanelLocomotive/>
     </div>
   </div>
 </template>
 
 <script>
 import AdminPanelCar from "@/components/AdminPanelCar.vue";
+import AdminPanelLocomotive from "@/components/AdminPanelLocomotive.vue";
 
 export default {
   name: "AdminPanel.vue",
-  components: {AdminPanelCar},
+  components: {
+    AdminPanelCar,
+    AdminPanelLocomotive
+  },
   data() {
     return {
       showPanel: false,
@@ -39,14 +43,7 @@ export default {
 </script>
 
 <style scoped>
-table {
-  border-collapse: collapse;
-}
-
-th,
-td {
-  border: 1px solid #dddddd;
-  padding: 8px;
-  text-align: left;
+button {
+  margin: 2px;
 }
 </style>
