@@ -1,6 +1,6 @@
 <template>
   <div class="container my-5 border border-">
-    <h3 class="text-center mb-3 p-5">Edytuj wagon</h3>
+    <h3 class="text-center mb-3 pt-5 pb-0">Edytuj wagon</h3>
     <form>
       <div class="form-group">
         <label for="carType">Typ wagonu:</label>
@@ -67,7 +67,7 @@
         <label for="amenities.wifi">WI-FI:</label>
         <input type="checkbox" id="amenities.wifi" v-model="amenities.wifi">
       </div>
-      <button type="submit" class="submit-button btn btn-primary" @click="submitForm">Submit</button>
+      <button type="submit" class="submit-button btn btn-primary" @click.prevent="submitForm">Submit</button>
     </form>
   </div>
 </template>
@@ -140,8 +140,7 @@ export default {
           .then(res => res.json())
           .then(() => {
             this.editForm = false
-
-            this.fetchCars()
+            this.$emit("close-edit-panel");
           })
           .catch(err => {
             console.error(err)

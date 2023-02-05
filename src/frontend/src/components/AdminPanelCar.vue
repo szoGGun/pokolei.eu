@@ -4,8 +4,8 @@
       <div class="row pb-5 h-100 d-flex align-items-center justify-content-center">
         <h1 class="ml-md-4 mr-md-4 p-3">Lista wszystkich wagonów w bazie</h1>
       </div>
-      <form v-if="editForm" @close="editForm = false" @submit="handleFormSubmit">
-        <EditCar :selectedCarId="selectedCarId"/>
+      <form v-if="editForm" @close="editForm = false">
+        <EditCar :selectedCarId="selectedCarId" @close-edit-panel="closeEditPanel"/>
       </form>
       <div class="form-outline p-2 d-flex align-items-center">
         <label for="nameFilter" style="font-weight: bold">Filtruj po nazwie:</label>
@@ -158,6 +158,10 @@ export default {
       this.showConfirmModal = true;
       this.selectedCarId = carId;
     },
+    closeEditPanel() {
+      this.editForm = false;
+      this.fetchCars()
+    }
   },
   computed: {
     filteredCars() {

@@ -6,7 +6,7 @@ import AdminPanel from "@/views/AdminPanel.vue";
 import Login from "@/views/Login"
 import Trains from "@/views/Trains.vue";
 import TrainComposition from "@/views/TrainComposition.vue";
-import AdminPanelCar from "@/components/AdminPanelCar.vue";
+import AdminPanelLocomotive from "@/components/AdminPanelLocomotive.vue";
 const routes = [
     {
         path: '/',
@@ -47,8 +47,8 @@ const routes = [
     },
     {
         path: '/temp',
-        name: 'adminPanelCar',
-        component: AdminPanelCar,
+        name: 'adminPanelLocomotive',
+        component: AdminPanelLocomotive,
         params: true
     },
 ]
