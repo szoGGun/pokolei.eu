@@ -79,7 +79,7 @@
   <Footer>
     <small>Autorzy rysunków (&copy;): Łukasz Paduch , EN57 , Krzysztof Dobrzański , Sebastian , pd .</small>
     <br>
-    <small>Schematy autorstwa (&copy;): rysmichala</small>
+    <small>Schematy autorstwa (&copy;): rysmichala (©): DarekP</small>
   </Footer>
 </template>
 
@@ -204,7 +204,7 @@ table {
 
 .modal-dialog{
   position: relative;
-  display: table; /* This is important */
+  display: table;
   overflow-y: auto;
   overflow-x: auto;
   width: auto;

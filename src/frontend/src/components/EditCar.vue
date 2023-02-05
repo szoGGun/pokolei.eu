@@ -1,6 +1,6 @@
 <template>
-  <div class="container my-5">
-    <h3 class="text-center mb-3">Edytuj wagon</h3>
+  <div class="container my-5 border border-">
+    <h3 class="text-center mb-3 p-5">Edytuj wagon</h3>
     <form>
       <div class="form-group">
         <label for="carType">Typ wagonu:</label>
@@ -67,7 +67,7 @@
         <label for="amenities.wifi">WI-FI:</label>
         <input type="checkbox" id="amenities.wifi" v-model="amenities.wifi">
       </div>
-      <button type="submit" @click="submitForm">Submit</button>
+      <button type="submit" class="submit-button btn btn-primary" @click="submitForm">Submit</button>
     </form>
   </div>
 </template>
@@ -182,5 +182,10 @@ form {
 
 label {
   margin-bottom: 0.5rem;
+}
+
+.submit-button {
+  display: block;
+  margin: 20px auto 0 46%;
 }
 </style>

@@ -4,9 +4,6 @@
       <div class="row pb-5 h-100 d-flex align-items-center justify-content-center">
         <h1 class="ml-md-4 mr-md-4 p-3">Lista wszystkich wagonów w bazie</h1>
       </div>
-      <form v-if="addForm" @close="addForm = false">
-        <AddCar/>
-      </form>
       <form v-if="editForm" @close="editForm = false" @submit="handleFormSubmit">
         <EditCar :selectedCarId="selectedCarId"/>
       </form>
@@ -14,7 +11,6 @@
         <label for="nameFilter" style="font-weight: bold">Filtruj po nazwie:</label>
         <input type="text" v-model="nameFilter" class="form-control" id="nameFilter">
       </div>
-      <!--      <button class="btn btn-primary add-button" @click="addForm = true">Dodaj wagon</button>-->
       <table class="table table-striped table-bordered">
         <thead class="table-dark">
         <tr>
@@ -67,12 +63,27 @@
           <td>
             <div style="display: flex;">
               <button class="btn btn-success" @click="selectedCarId = car.carId; editForm = true">Edytuj</button>
-              <button class="btn btn-danger" @click="deleteCar(car.carId)">Usuń</button>
+              <button class="btn btn-danger" @click="openConfirmModal(car.carId)">Usuń</button>
             </div>
           </td>
         </tr>
         </tbody>
       </table>
+
+      <!-- Remove confirmation modal -->
+      <div v-if="showConfirmModal" class="modal" style="display:flex; justify-content:center; align-items:center;">
+        <div class="modal-dialog modal-lg" role="document">
+          <div class="modal-content">
+            <div class="modal-body">
+              <h5 class="modal-title">Czy na pewno chcesz usunąć ten wagon?</h5>
+                <button class="btn btn-danger" @click="deleteCar(selectedCarId)">Tak</button>
+                <button class="btn btn-primary" @click="showConfirmModal = false">Nie</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Car schema modal -->
       <div v-if="showImage" class="modal" style="display:block">
         <div class="modal-dialog modal-lg" role="document">
           <div class="modal-content">
@@ -92,22 +103,20 @@
 </template>
 
 <script>
-import AddCar from "@/components/AddCar.vue"
 import EditCar from "@/components/EditCar.vue";
 
 export default {
   name: "AdminPanelCar",
-  components: {EditCar, AddCar},
+  components: {EditCar},
   data() {
     return {
-      addForm: false,
       editForm: false,
       cars: [],
       showImage: false,
       schemaSrc: '',
       nameFilter: '',
-      addModal: '',
-      selectedCarId: null
+      selectedCarId: null,
+      showConfirmModal: false,
     };
   },
   created() {
@@ -126,6 +135,7 @@ export default {
         method: "DELETE",
       })
           .then(() => {
+            this.showConfirmModal = false;
             this.fetchCars()
           })
           .catch((error) => {
@@ -143,6 +153,10 @@ export default {
     closeSchema() {
       this.showImage = false;
       this.schemaSrc = '';
+    },
+    openConfirmModal(carId) {
+      this.showConfirmModal = true;
+      this.selectedCarId = carId;
     },
   },
   computed: {
