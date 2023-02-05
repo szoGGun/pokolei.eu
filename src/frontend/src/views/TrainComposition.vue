@@ -58,7 +58,9 @@
               </tbody>
             </table>
           </div>
-          <div v-if="showImage" class="modal" style="display:block">
+
+          <!-- Car schema modal -->
+          <div v-if="showImage" class="modal modal-overlay" style="display:flex; justify-content:center; align-items:center;">
             <div class="modal-dialog modal-lg" role="document">
               <div class="modal-content">
                 <div class="modal-header">
@@ -209,5 +211,15 @@ table {
   overflow-x: auto;
   width: auto;
   min-width: 300px;
+}
+
+.modal-overlay {
+  background-color: rgba(0, 0, 0, 0.5);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: none;
 }
 </style>

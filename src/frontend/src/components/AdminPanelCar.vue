@@ -71,7 +71,7 @@
       </table>
 
       <!-- Remove confirmation modal -->
-      <div v-if="showConfirmModal" class="modal" style="display:flex; justify-content:center; align-items:center;">
+      <div v-if="showConfirmModal" class="modal modal-overlay" style="display:flex; justify-content:center; align-items:center;">
         <div class="modal-dialog modal-lg" role="document">
           <div class="modal-content">
             <div class="modal-body">
@@ -84,7 +84,7 @@
       </div>
 
       <!-- Car schema modal -->
-      <div v-if="showImage" class="modal" style="display:block">
+      <div v-if="showImage" class="modal modal-overlay" style="display:flex; justify-content:center; align-items:center;">
         <div class="modal-dialog modal-lg" role="document">
           <div class="modal-content">
             <div class="modal-header">
@@ -198,5 +198,14 @@ table {
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.25);
+}
+.modal-overlay {
+  background-color: rgba(0, 0, 0, 0.5);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: none;
 }
 </style>
