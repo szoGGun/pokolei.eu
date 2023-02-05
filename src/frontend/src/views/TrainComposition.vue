@@ -1,70 +1,77 @@
 <template>
   <div class="container-fluid m-0 p-0">
-
     <div id="trains-table" class="full-height p-5">
       <div class="row p-5 mt-5">
         <div class="row pb-5 h-100 d-flex align-items-center justify-content-center">
           <h1 class="ml-md-4 mr-md-4 p-3">Zestawienie pociągu {{ trainFullName }}</h1>
-        </div>
-        <div class="row p-5">
-          <table class="table table-striped table-bordered">
-            <thead class="table-dark">
-            <tr>
-              <th>Numer wagonu</th>
-              <th>Nazwa</th>
-              <th>Wygląd</th>
-              <th>Udogodnienia</th>
-              <th>Liczba siedzeń</th>
-              <th>Dodatkowe informacje</th>
-              <th>Schemat wagonu</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr v-for="locomotive in locomotives" :key="locomotive.locomotiveId">
-              <td></td>
-              <td>{{ locomotive.name }}</td>
-              <td><img :src="getLocomotiveUrl(locomotive.pictureLink)" alt=""/></td>
-              <td></td>
-              <td></td>
-              <td style='font-size:80%'>Prędkość: {{ locomotive.drivingSpeed }}, Waga:{{ locomotive.weight }}</td>
-              <td></td>
-            </tr>
-            <tr v-for="(car, index) in cars" :key="car.carId">
-              <td>{{ car.carNumber }}</td>
-              <td>{{ car.name }}</td>
-              <td><img :src="getCarUrl(car.pictureLink)" alt=""/></td>
-              <td>
-                <div class="image-container">
-                  <img id="pictograms"
-                       v-if="getPictogramForTravelClass(car.travelClass)"
-                       :src="getPictogramForTravelClass(car.travelClass)"
-                       :title="getPictogramTitleForTravelClass(car.travelClass)"
-                       alt=""/>
-                  <div v-for="feature in features" :key="index + '-' + feature.name">
+          <div class="row p-5">
+            <table class="table table-striped table-bordered">
+              <thead class="table-dark">
+              <tr>
+                <th>Numer wagonu</th>
+                <th>Nazwa</th>
+                <th>Wygląd</th>
+                <th>Udogodnienia</th>
+                <th>Liczba siedzeń</th>
+                <th>Dodatkowe informacje</th>
+                <th>Schemat wagonu</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr v-for="locomotive in locomotives" :key="locomotive.locomotiveId">
+                <td></td>
+                <td>{{ locomotive.name }}</td>
+                <td><img :src="getLocomotiveUrl(locomotive.pictureLink)" alt=""/></td>
+                <td></td>
+                <td></td>
+                <td style='font-size:80%'>Prędkość: {{ locomotive.drivingSpeed }}, Waga:{{ locomotive.weight }}</td>
+                <td></td>
+              </tr>
+              <tr v-for="(car, index) in cars" :key="car.carId">
+                <td>{{ car.carNumber }}</td>
+                <td>{{ car.name }}</td>
+                <td><img :src="getCarUrl(car.pictureLink)" alt=""/></td>
+                <td>
+                  <div class="pictograms-container">
                     <img id="pictograms"
-                         v-if="car[feature.name]"
-                         :src="getPictogramUrl(feature.pictogram)"
-                         :title="feature.title" alt=""/>
+                         v-if="getPictogramForTravelClass(car.travelClass)"
+                         :src="getPictogramForTravelClass(car.travelClass)"
+                         :title="getPictogramTitleForTravelClass(car.travelClass)"
+                         alt=""/>
+                    <div v-for="feature in features" :key="index + '-' + feature.name">
+                      <img id="pictograms"
+                           v-if="car[feature.name]"
+                           :src="getPictogramUrl(feature.pictogram)"
+                           :title="feature.title" alt=""/>
+                    </div>
                   </div>
+                </td>
+                <td>{{ car.numberOfSeats }}</td>
+                <td style='font-size:80%'>{{ car.additionalInfo }}</td>
+                <td>
+                  <div v-if="car.schemaLink">
+                    <img @click="toggleSchema(car.schemaLink, car.name)" id="pictograms"
+                         src="@/assets/pictograms/schema.svg" alt=""/>
+                  </div>
+                </td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+          <div v-if="showImage" class="modal" style="display:block">
+            <div class="modal-dialog modal-lg" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title">Schemat dla wagonu: {{ carName }}</h5>
+                  <button @click="closeSchema" type="button" class="btn-close" aria-label="Close"></button>
                 </div>
-              </td>
-              <td>{{ car.numberOfSeats }}</td>
-              <td style='font-size:80%'>{{ car.additionalInfo }}</td>
-              <td>
-                <div v-if="car.schemaLink">
-                  <img @click="toggleSchema(car.schemaLink, car.name)" id="pictograms"
-                       src="@/assets/pictograms/schema.svg" alt=""/>
+                <div class="modal-body">
+                  <img :src="schemaSrc" alt=""/>
+                  <div class="-credit-card">Rysunki autorstwa <br> (©): rysmichala (©): DarekP</div>
                 </div>
-              </td>
-            </tr>
-            </tbody>
-          </table>
-        </div>
-        <div v-if="showImage" style="position:relative;">
-          <h5>Schemat dla wagonu: {{ this.carName }}</h5>
-          <button @click="closeSchema" type="button" class="btn-close" aria-label="Close"></button>
-          <img :src="schemaSrc" alt=""/>
-          <div class="-credit-card">Rysunki autorstwa (©): rysmichala</div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -158,11 +165,7 @@ export default {
       return require(`../assets/pictograms/${pictogram}.svg`);
     },
     toggleSchema(schemaLink, name) {
-      if (this.schemaVisible) {
-        this.closeSchema();
-      } else {
-        this.showSchema(schemaLink, name);
-      }
+      this.showSchema(schemaLink, name);
       this.schemaVisible = !this.schemaVisible;
     },
     showSchema(schemaLink, carName) {
@@ -183,7 +186,7 @@ export default {
 </script>
 
 <style scoped>
-.image-container {
+.pictograms-container {
   display: flex;
   grid-template-columns: repeat(4, 1fr);
 }
@@ -193,13 +196,18 @@ table {
   border-spacing: 1em;
 }
 
-button {
-  position: absolute;
-}
-
 #pictograms {
   width: 40px;
   height: 40px;
   margin: 1px;
+}
+
+.modal-dialog{
+  position: relative;
+  display: table; /* This is important */
+  overflow-y: auto;
+  overflow-x: auto;
+  width: auto;
+  min-width: 300px;
 }
 </style>
