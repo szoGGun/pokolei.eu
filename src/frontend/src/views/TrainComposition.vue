@@ -24,7 +24,9 @@
                 <td><img :src="getLocomotiveUrl(locomotive.pictureLink)" alt=""/></td>
                 <td></td>
                 <td></td>
-                <td style='font-size:80%'>Prędkość: {{ locomotive.drivingSpeed }}, Waga:{{ locomotive.weight }}</td>
+                <td style='font-size:80%'>Prędkość: {{ locomotive.drivingSpeed }}, <br> Waga:{{ locomotive.weight }},
+                  <br> {{ locomotive.locomotiveAdditionalInfo }}
+                </td>
                 <td></td>
               </tr>
               <tr v-for="(car, index) in cars" :key="car.carId">
@@ -60,7 +62,8 @@
           </div>
 
           <!-- Car schema modal -->
-          <div v-if="showImage" class="modal modal-overlay" style="display:flex; justify-content:center; align-items:center;">
+          <div v-if="showImage" class="modal modal-overlay"
+               style="display:flex; justify-content:center; align-items:center;">
             <div class="modal-dialog modal-lg" role="document">
               <div class="modal-content">
                 <div class="modal-header">
@@ -204,7 +207,7 @@ table {
   margin: 1px;
 }
 
-.modal-dialog{
+.modal-dialog {
   position: relative;
   display: table;
   overflow-y: auto;

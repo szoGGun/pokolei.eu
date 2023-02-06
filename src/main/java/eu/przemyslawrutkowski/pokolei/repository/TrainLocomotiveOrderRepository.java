@@ -9,6 +9,6 @@ import java.util.List;
 
 public interface TrainLocomotiveOrderRepository extends JpaRepository<TrainLocomotiveOrder, Long> {
 
-    @Query("SELECT l, tlo.locomotiveOrder FROM TrainLocomotiveOrder tlo JOIN Locomotive l ON tlo.locomotive.locomotiveId = l.locomotiveId WHERE tlo.train.trainId = :trainId ORDER BY tlo.locomotiveOrder")
+    @Query("SELECT l, tlo.locomotiveOrder, tlo.locomotiveAdditionalInfo FROM TrainLocomotiveOrder tlo JOIN Locomotive l ON tlo.locomotive.locomotiveId = l.locomotiveId WHERE tlo.train.trainId = :trainId ORDER BY tlo.locomotiveOrder")
     List<Object[]> findLocomotiveByTrainId(@Param("trainId") Long trainId);
 }

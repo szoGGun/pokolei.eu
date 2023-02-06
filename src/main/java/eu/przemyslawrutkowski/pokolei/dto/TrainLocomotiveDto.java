@@ -10,14 +10,10 @@ import lombok.Setter;
 public class TrainLocomotiveDto {
 
     private Long locomotiveId;
-
     private String name;
-
     private String drivingSpeed;
-
     private String weight;
-
     private String pictureLink;
-
+    private String locomotiveAdditionalInfo;
     private int order;
 }
