@@ -11,7 +11,7 @@
         <label for="trainNameFilter" style="font-weight: bold">Filtruj po nazwie:</label>
         <input type="text" v-model="trainNameFilter" class="form-control" id="trainNameFilter">
       </div>
-      <button class="btn btn-primary add-button" @click="addTrain = true">Dodaj wagon</button>
+      <button class="btn btn-primary add-button" @click="redirectToAddTrain">Dodaj pociąg</button>
       <table class="table table-striped table-bordered">
         <thead class="table-dark">
         <tr>
@@ -101,7 +101,10 @@ export default {
     closeEditPanel() {
       this.editForm = false;
       this.fetchTrains()
-    }
+    },
+    redirectToAddTrain() {
+      this.$router.push({ name:"addTrain"});
+    },
   },
   computed: {
     filteredTrains() {
@@ -113,15 +116,16 @@ export default {
 </script>
 
 <style scoped>
-#schema {
-  width: 40px;
-  height: 40px;
+button {
+  font-size: 14px;
+  padding: 5px 10px;
+  margin: 2px;
 }
 
-button {
-  font-size: 12px;
-  padding: 5px 10px;
-  margin: 1px;
+.add-button {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  font-size: 30px;
 }
 
 table {

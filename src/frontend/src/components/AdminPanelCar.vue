@@ -179,9 +179,9 @@ export default {
 }
 
 button {
-  font-size: 12px;
+  font-size: 14px;
   padding: 5px 10px;
-  margin: 1px;
+  margin: 2px;
 }
 
 table {

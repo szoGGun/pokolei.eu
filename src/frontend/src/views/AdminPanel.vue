@@ -6,11 +6,14 @@
       <button class="btn btn-dark" @click="displayPanel('trains')">Trains</button>
     </div>
 
-    <div v-if="showPanel && panelType === 'cars'">
+    <div id="cars-button"  v-if="panelType === 'cars'">
       <AdminPanelCar/>
     </div>
-    <div v-if="showPanel && panelType === 'locomotives'">
+    <div id="locomotives-button" v-if="panelType === 'locomotives'">
       <AdminPanelLocomotive/>
+    </div>
+    <div id="trains-button" v-if="panelType === 'trains'">
+      <AdminPanelTrain/>
     </div>
   </div>
 </template>
@@ -18,16 +21,17 @@
 <script>
 import AdminPanelCar from "@/components/AdminPanelCar.vue";
 import AdminPanelLocomotive from "@/components/AdminPanelLocomotive.vue";
+import AdminPanelTrain from "@/components/AdminPanelTrain.vue";
 
 export default {
   name: "AdminPanel.vue",
   components: {
+    AdminPanelTrain,
     AdminPanelCar,
     AdminPanelLocomotive
   },
   data() {
     return {
-      showPanel: false,
       panelType: "",
       locomotives: [],
       trains: []
@@ -36,7 +40,6 @@ export default {
   methods: {
     displayPanel(panelType) {
       this.panelType = panelType;
-      this.showPanel = true;
     },
   }
 };

@@ -53,7 +53,7 @@ const routes = [
         params: true
     },
     {
-        path: '/test',
+        path: '/admin/add-train',
         name: 'addTrain',
         component: AddTrain,
         params: true
