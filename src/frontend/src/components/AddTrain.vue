@@ -90,7 +90,7 @@
               </div>
               <div class="form-group">
                 <label for="additionalInfo">Dodatkowe informacje:</label>
-                <textarea type="text" id="additionalInfo" v-model="additionalInfoTrain"/>
+                <textarea type="text" id="additionalInfo" v-model="additionalInfo"/>
               </div>
               <div class="col-md-12 text-center">
                 <button type="submit" class="mt-5 submit-button btn btn-primary" @click.prevent="submitForm"
@@ -189,7 +189,7 @@ export default {
       trainName: '',
       route: '',
       runningDates: '',
-      additionalInfoTrain: '',
+      additionalInfo: '',
       additionalInfoCar: '',
       additionalInfoLocomotive: '',
       cars: [],
@@ -226,7 +226,7 @@ export default {
           trainName: this.trainName,
           route: this.route,
           runningDates: this.runningDates,
-          additionalInfoTrain: this.additionalInfoTrain,
+          additionalInfo: this.additionalInfo,
           selectedCars: this.selectedCars,
           selectedLocomotives: this.selectedLocomotives
         };
@@ -257,20 +257,16 @@ export default {
       let selectedCar = this.cars.find(car => car.carId === carId)
       let uniqueCar = Object.assign({}, selectedCar)
       this.selectedCars.push(uniqueCar)
-      console.log(this.selectedCars)
     },
     selectLocomotive(locomotiveId) {
       let selectedLocomotive = this.locomotives.find(locomotive => locomotive.locomotiveId === locomotiveId)
       this.selectedLocomotives.push(selectedLocomotive)
-      console.log(this.selectedLocomotives)
     },
     removeItem(index, type) {
       if (type === 'cars') {
         this.selectedCars.splice(index, 1);
-        console.log(this.selectedCars)
       } else if (type === 'locomotives') {
         this.selectedLocomotives.splice(index, 1);
-        console.log(this.selectedLocomotives)
       }
     },
     moveItemUp(order, type) {
