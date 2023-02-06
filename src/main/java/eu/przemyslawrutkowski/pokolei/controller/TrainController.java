@@ -2,6 +2,7 @@ package eu.przemyslawrutkowski.pokolei.controller;
 
 import eu.przemyslawrutkowski.pokolei.dto.*;
 import eu.przemyslawrutkowski.pokolei.entity.*;
+import eu.przemyslawrutkowski.pokolei.errors.ResourceNotFoundException;
 import eu.przemyslawrutkowski.pokolei.repository.*;
 import eu.przemyslawrutkowski.pokolei.service.CarService;
 import eu.przemyslawrutkowski.pokolei.service.LocomotiveService;
@@ -45,6 +46,49 @@ public class TrainController {
         }
 
         return trains;
+    }
+
+    @GetMapping("/trains/get/{trainId}")
+    public ResponseEntity<TrainDto> getTrain(@PathVariable Long trainId) {
+        Train train = trainRepository.findById(trainId).orElseThrow(() -> new ResourceNotFoundException("Train not found with id: " + trainId));
+        TrainDto trainDto = new TrainDto();
+        trainDto.setTrainNumber(train.getTrainNumber());
+        trainDto.setTrainName(train.getTrainName());
+        trainDto.setRoute(train.getRoute());
+        trainDto.setRunningDates(train.getRunningDates());
+        trainDto.setAdditionalInfo(train.getAdditionalInfo());
+        List<TrainCarOrder> trainCarOrders = train.getTrainCarOrders();
+        CarDto[] selectedCars = new CarDto[trainCarOrders.size()];
+        for (int i = 0; i < trainCarOrders.size(); i++) {
+            CarDto carDto = new CarDto();
+            carDto.setAdditionalInfo(trainCarOrders.get(i).getCarAdditionalInfo());
+            carDto.setCarId(trainCarOrders.get(i).getCar().getCarId());
+            carDto.setCarNumber(trainCarOrders.get(i).getCarNumber());
+            carDto.setCarType(trainCarOrders.get(i).getCar().getCarType());
+            carDto.setName(trainCarOrders.get(i).getCar().getName());
+            carDto.setNumberOfSeats(trainCarOrders.get(i).getCar().getNumberOfSeats());
+            carDto.setPictureLink(trainCarOrders.get(i).getCar().getPictureLink());
+            carDto.setSchemaLink(trainCarOrders.get(i).getCar().getSchemaLink());
+            carDto.setTravelClass(trainCarOrders.get(i).getCar().getTravelClass());
+            selectedCars[i] = carDto;
+        }
+        trainDto.setSelectedCars(selectedCars);
+
+        List<TrainLocomotiveOrder> trainLocomotiveOrders = train.getTrainLocomotiveOrders();
+        LocomotiveDto[] selectedLocomotives = new LocomotiveDto[trainLocomotiveOrders.size()];
+        for (int i = 0; i < trainLocomotiveOrders.size(); i++) {
+            LocomotiveDto locomotiveDto = new LocomotiveDto();
+            locomotiveDto.setAdditionalInfo(trainLocomotiveOrders.get(i).getLocomotiveAdditionalInfo());
+            locomotiveDto.setDrivingSpeed(trainLocomotiveOrders.get(i).getLocomotive().getDrivingSpeed());
+            locomotiveDto.setLocomotiveId(trainLocomotiveOrders.get(i).getLocomotive().getLocomotiveId());
+            locomotiveDto.setName(trainLocomotiveOrders.get(i).getLocomotive().getName());
+            locomotiveDto.setPictureLink(trainLocomotiveOrders.get(i).getLocomotive().getPictureLink());
+            locomotiveDto.setWeight(trainLocomotiveOrders.get(i).getLocomotive().getWeight());
+            selectedLocomotives[i] = locomotiveDto;
+        }
+        trainDto.setSelectedLocomotives(selectedLocomotives);
+
+        return new ResponseEntity<>(trainDto, HttpStatus.OK);
     }
 
     @PostMapping("/trains/add")
@@ -119,7 +163,7 @@ public class TrainController {
 
     private TrainCarDto createTrainCarDto(Car car, int order, int carNumber, String carAdditionalInfo, Amenities amenities) {
         return new TrainCarDto(car.getCarId(), car.getCarType(), car.getName(), car.getNumberOfSeats(),
-                car.getTravelClass(), amenities.getAirConditioning(),  amenities.getBarCar(), amenities.getBicycles(), amenities.getCompartmentless(), amenities.getDiningCar(),
+                car.getTravelClass(), amenities.getAirConditioning(), amenities.getBarCar(), amenities.getBicycles(), amenities.getCompartmentless(), amenities.getDiningCar(),
                 amenities.getDisabledLift(), amenities.getDisabledSeats(), amenities.getElectricalOutlets(), amenities.getSleepingCar(),
                 amenities.getToilet(), amenities.getWifi(), car.getPictureLink(), car.getSchemaLink(), carNumber,
                 order, carAdditionalInfo);

@@ -6,8 +6,9 @@ import AdminPanel from "@/views/AdminPanel.vue";
 import Login from "@/views/Login"
 import Trains from "@/views/Trains.vue";
 import TrainComposition from "@/views/TrainComposition.vue";
-import AdminPanelTrain from "@/components/AdminPanelTrain.vue";
 import AddTrain from "@/components/AddTrain.vue";
+import EditTrain from "@/components/EditTrain.vue";
+
 const routes = [
     {
         path: '/',
@@ -48,9 +49,10 @@ const routes = [
     },
     {
         path: '/temp',
-        name: 'adminPanelTrain',
-        component: AdminPanelTrain,
-        params: true
+        name: 'editTrain',
+        component: EditTrain,
+        params: true,
+        props: true
     },
     {
         path: '/admin/add-train',

@@ -4,9 +4,7 @@
       <div class="row pb-5 h-100 d-flex align-items-center justify-content-center">
         <h1 class="ml-md-4 mr-md-4 p-3">Lista wszystkich lokomotyw w bazie</h1>
       </div>
-      <form v-if="editForm" @close="editForm = false">
 
-      </form>
       <div class="form-outline p-2 d-flex align-items-center">
         <label for="trainNameFilter" style="font-weight: bold">Filtruj po nazwie:</label>
         <input type="text" v-model="trainNameFilter" class="form-control" id="trainNameFilter">
@@ -32,7 +30,7 @@
           <td> {{ train.additionalInfo }}</td>
           <td>
             <div style="display: flex; justify-content: center">
-              <button class="btn btn-success" @click="selectedTrainId = train.trainId; editForm = true">Edytuj</button>
+              <button class="btn btn-success" @click="redirectToEditTrain(train.trainId)">Edytuj</button>
               <button class="btn btn-danger" @click="openConfirmModal(train.trainId)">Usuń</button>
             </div>
           </td>
@@ -63,7 +61,6 @@ export default {
   name: "AdminPanelTrain",
   data() {
     return {
-      editForm: false,
       trains: [],
       showImage: false,
       trainNameFilter: '',
@@ -98,12 +95,16 @@ export default {
       this.showConfirmModal = true;
       this.selectedTrainId = trainId;
     },
-    closeEditPanel() {
-      this.editForm = false;
-      this.fetchTrains()
-    },
     redirectToAddTrain() {
-      this.$router.push({ name:"addTrain"});
+      this.$router.push({name: "addTrain"});
+    },
+    redirectToEditTrain(trainId) {
+      this.$router.push({
+        name: "editTrain",
+        params: {
+          trainId: trainId
+        }
+      });
     },
   },
   computed: {
@@ -111,7 +112,7 @@ export default {
       return this.trains.filter(train => train.trainName.toLowerCase().includes(this.trainNameFilter.toLowerCase()))
           .sort((a, b) => a.trainId - b.trainId);
     },
-  },
+  }
 }
 </script>
 
