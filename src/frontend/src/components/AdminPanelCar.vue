@@ -17,7 +17,7 @@
           <th>ID</th>
           <th>Typ</th>
           <th>Nazwa</th>
-          <th>Zdjęcie</th>
+          <th>Wygląd</th>
           <th>Liczba siedzeń</th>
           <th>Klasa</th>
           <th>Klimatyzacja</th>

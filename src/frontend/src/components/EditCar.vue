@@ -155,6 +155,7 @@ export default {
 label {
   font-weight: bold;
   margin-top: 20px;
+  margin-bottom: 0.5rem;
 }
 
 form {
@@ -171,10 +172,6 @@ form {
   align-items: center;
   margin: 0 1rem;
   width: 30%;
-}
-
-label {
-  margin-bottom: 0.5rem;
 }
 
 .submit-button {
