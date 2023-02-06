@@ -260,7 +260,8 @@ export default {
     },
     selectLocomotive(locomotiveId) {
       let selectedLocomotive = this.locomotives.find(locomotive => locomotive.locomotiveId === locomotiveId)
-      this.selectedLocomotives.push(selectedLocomotive)
+      let uniqueLocomotive = Object.assign({}, selectedLocomotive)
+      this.selectedLocomotives.push(uniqueLocomotive)
     },
     removeItem(index, type) {
       if (type === 'cars') {
