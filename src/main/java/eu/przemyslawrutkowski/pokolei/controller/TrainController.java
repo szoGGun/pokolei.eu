@@ -1,16 +1,13 @@
 package eu.przemyslawrutkowski.pokolei.controller;
 
-import eu.przemyslawrutkowski.pokolei.dto.TrainCarDto;
-import eu.przemyslawrutkowski.pokolei.dto.TrainLocomotiveDto;
-import eu.przemyslawrutkowski.pokolei.entity.Amenities;
-import eu.przemyslawrutkowski.pokolei.entity.Car;
-import eu.przemyslawrutkowski.pokolei.entity.Locomotive;
-import eu.przemyslawrutkowski.pokolei.entity.Train;
-import eu.przemyslawrutkowski.pokolei.repository.AmenitiesRepository;
-import eu.przemyslawrutkowski.pokolei.repository.TrainCarOrderRepository;
-import eu.przemyslawrutkowski.pokolei.repository.TrainLocomotiveOrderRepository;
-import eu.przemyslawrutkowski.pokolei.repository.TrainRepository;
+import eu.przemyslawrutkowski.pokolei.dto.*;
+import eu.przemyslawrutkowski.pokolei.entity.*;
+import eu.przemyslawrutkowski.pokolei.repository.*;
+import eu.przemyslawrutkowski.pokolei.service.CarService;
+import eu.przemyslawrutkowski.pokolei.service.LocomotiveService;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -29,6 +26,10 @@ public class TrainController {
 
     private final AmenitiesRepository amenitiesRepository;
 
+    private final CarService carService;
+
+    private final LocomotiveService locomotiveService;
+
     @GetMapping("/trains")
     public List<Train> getAllTrains() {
         return trainRepository.findAll();
@@ -44,6 +45,46 @@ public class TrainController {
         }
 
         return trains;
+    }
+
+    @PostMapping("/trains/add")
+    public ResponseEntity<Train> addTrain(@RequestBody TrainDto trainDto) {
+        Train train = new Train();
+        train.setTrainNumber(trainDto.getTrainNumber());
+        train.setTrainName(trainDto.getTrainName());
+        train.setRoute(trainDto.getRoute());
+        train.setRunningDates(trainDto.getRunningDates());
+        train.setAdditionalInfo(trainDto.getAdditionalInfo());
+
+        List<TrainCarOrder> trainCarOrders = new ArrayList<>();
+        CarDto[] selectedCars = trainDto.getSelectedCars();
+        for (int i = 0; i < selectedCars.length; i++) {
+            Car car = carService.getCarById(selectedCars[i].getCarId());
+            TrainCarOrder trainCarOrder = new TrainCarOrder();
+            trainCarOrder.setCar(car);
+            trainCarOrder.setCarNumber(selectedCars[i].getCarNumber());
+            trainCarOrder.setCarAdditionalInfo(selectedCars[i].getAdditionalInfo());
+            trainCarOrder.setCarOrder(i + 1);
+            trainCarOrder.setTrain(train);
+            trainCarOrders.add(trainCarOrder);
+        }
+        train.setTrainCarOrders(trainCarOrders);
+
+        List<TrainLocomotiveOrder> trainLocomotiveOrders = new ArrayList<>();
+        LocomotiveDto[] selectedLocomotives = trainDto.getSelectedLocomotives();
+        for (int i = 0; i < selectedLocomotives.length; i++) {
+            Locomotive locomotive = locomotiveService.getLocomotiveById(selectedLocomotives[i].getLocomotiveId());
+            TrainLocomotiveOrder trainLocomotiveOrder = new TrainLocomotiveOrder();
+            trainLocomotiveOrder.setLocomotive(locomotive);
+            trainLocomotiveOrder.setLocomotiveOrder(i + 1);
+            trainLocomotiveOrder.setLocomotiveAdditionalInfo(selectedLocomotives[i].getAdditionalInfo());
+            trainLocomotiveOrder.setTrain(train);
+            trainLocomotiveOrders.add(trainLocomotiveOrder);
+        }
+        train.setTrainLocomotiveOrders(trainLocomotiveOrders);
+
+        train = trainRepository.save(train);
+        return new ResponseEntity<>(train, HttpStatus.CREATED);
     }
 
     @GetMapping("/{trainId}/cars")
@@ -69,8 +110,9 @@ public class TrainController {
         for (Object[] locomotiveAndOrder : locomotivesAndOrders) {
             Locomotive locomotive = (Locomotive) locomotiveAndOrder[0];
             int order = (int) locomotiveAndOrder[1];
+            String locomotiveAdditionalInfo = (String) locomotiveAndOrder[2];
             locomotives.add(new TrainLocomotiveDto(locomotive.getLocomotiveId(), locomotive.getName(),
-                    locomotive.getDrivingSpeed(), locomotive.getWeight(), locomotive.getPictureLink(), order));
+                    locomotive.getDrivingSpeed(), locomotive.getWeight(), locomotive.getPictureLink(), locomotiveAdditionalInfo, order));
         }
         return locomotives;
     }
