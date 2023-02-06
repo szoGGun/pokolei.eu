@@ -1,7 +1,12 @@
 package eu.przemyslawrutkowski.pokolei.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter
+@Setter
 @Entity
 @Table(name = "train_car_order")
 public class TrainCarOrder {
@@ -10,10 +15,12 @@ public class TrainCarOrder {
     @Column(name = "train_car_order_id")
     private long trainCarOrderId;
 
+    @JsonManagedReference
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "train_id")
     private Train train;
 
+    @JsonManagedReference
     @ManyToOne
     @JoinColumn(name = "car_id")
     private Car car;

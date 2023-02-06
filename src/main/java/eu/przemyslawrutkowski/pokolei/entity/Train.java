@@ -1,5 +1,6 @@
 package eu.przemyslawrutkowski.pokolei.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -35,9 +36,11 @@ public class Train {
 
     private String additionalInfo;
 
+    @JsonBackReference
     @OneToMany(mappedBy = "train", cascade = CascadeType.ALL)
     private List<TrainCarOrder> trainCarOrders;
 
+    @JsonBackReference
     @OneToMany(mappedBy = "train", cascade = CascadeType.ALL)
     private List<TrainLocomotiveOrder> trainLocomotiveOrders;
 }

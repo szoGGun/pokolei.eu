@@ -1,5 +1,6 @@
 package eu.przemyslawrutkowski.pokolei.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
@@ -45,6 +46,7 @@ public class Car {
     @JoinColumn(name = "amenities_id", nullable = false)
     private Amenities amenities;
 
+    @JsonBackReference
     @OneToMany(mappedBy = "car")
     private List<TrainCarOrder> trainCarOrders;
 }
