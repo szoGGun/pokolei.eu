@@ -39,7 +39,7 @@ public class Amenities {
 
     private Boolean wifi;
 
-    @JsonBackReference
+    @JsonBackReference("car-amenities")
     @OneToOne(mappedBy = "amenities", cascade = CascadeType.ALL)
     private Car car;
 }

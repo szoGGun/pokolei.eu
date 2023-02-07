@@ -15,12 +15,10 @@ public class TrainCarOrder {
     @Column(name = "train_car_order_id")
     private long trainCarOrderId;
 
-    @JsonManagedReference
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "train_id")
     private Train train;
 
-    @JsonManagedReference
     @ManyToOne
     @JoinColumn(name = "car_id")
     private Car car;

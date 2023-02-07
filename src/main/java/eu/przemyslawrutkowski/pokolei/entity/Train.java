@@ -5,10 +5,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Getter
 @Setter
@@ -36,11 +33,11 @@ public class Train {
 
     private String additionalInfo;
 
-    @JsonBackReference
+    @JsonBackReference("train-car")
     @OneToMany(mappedBy = "train", cascade = CascadeType.ALL)
     private List<TrainCarOrder> trainCarOrders;
 
-    @JsonBackReference
+    @JsonBackReference("train-locomotive")
     @OneToMany(mappedBy = "train", cascade = CascadeType.ALL)
     private List<TrainLocomotiveOrder> trainLocomotiveOrders;
 }

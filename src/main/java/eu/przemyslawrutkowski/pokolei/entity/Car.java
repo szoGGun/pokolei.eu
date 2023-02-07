@@ -41,12 +41,11 @@ public class Car {
     @Size(max = 200)
     private String schemaLink;
 
-    @JsonManagedReference
     @OneToOne(optional = false, cascade = CascadeType.ALL)
     @JoinColumn(name = "amenities_id", nullable = false)
     private Amenities amenities;
 
-    @JsonBackReference
+    @JsonBackReference("train-car")
     @OneToMany(mappedBy = "car")
     private List<TrainCarOrder> trainCarOrders;
 }

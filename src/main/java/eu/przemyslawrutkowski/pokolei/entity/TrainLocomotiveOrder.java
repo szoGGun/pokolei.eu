@@ -16,12 +16,10 @@ public class TrainLocomotiveOrder {
     @Column(name = "train_locomotive_order_id")
     private long trainLocomotiveOrderId;
 
-    @JsonManagedReference
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "train_id", nullable = false)
     private Train train;
 
-    @JsonManagedReference
     @ManyToOne
     @JoinColumn(name = "locomotive_id", nullable = false)
     private Locomotive locomotive;
