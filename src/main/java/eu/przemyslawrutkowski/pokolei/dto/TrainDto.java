@@ -10,6 +10,8 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class TrainDto {
+
+    private Long trainId;
     private String trainNumber;
     private String trainName;
     private String route;

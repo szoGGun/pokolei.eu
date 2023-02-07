@@ -203,7 +203,6 @@ export default {
     }
   },
   created() {
-    this.showId(this.trainId);
     this.getTrainData(this.trainId).then(trainData => {
       this.trainNumber = trainData.trainNumber;
       this.trainName = trainData.trainName;
@@ -217,9 +216,6 @@ export default {
     this.fetchLocomotives();
   },
   methods: {
-    showId(id) {
-      console.log(id);
-    },
     getTrainData(trainId) {
       return fetch(`http://localhost:3081/api/trains/get/${trainId}`)
           .then(response => {
@@ -247,10 +243,11 @@ export default {
           });
     },
     submitForm() {
-      if (!this.trainNumber.match(/^[0-9()\s]+$/)) {
+      if (!this.trainNumber.match(/^[0-9()/\s]+$/)) {
         alert('Numer pociągu może zawierać tylko cyfry, nawiasy i ukośniki!')
       } else if (this.trainNumber && this.route && this.runningDates) {
         let editTrainData = {
+          trainId: this.trainId,
           trainNumber: this.trainNumber,
           trainName: this.trainName,
           route: this.route,
@@ -266,7 +263,7 @@ export default {
     },
     handleFormSubmit(editTrainData) {
       fetch('http://localhost:3081/api/trains/edit', {
-        method: 'POST',
+        method: 'PUT',
         headers: {
           'Content-Type': 'application/json'
         },
@@ -274,6 +271,7 @@ export default {
       })
           .then(res => res.json())
           .then(() => {
+            this.$router.push('/admin');
           })
           .catch(err => {
             console.error(err)

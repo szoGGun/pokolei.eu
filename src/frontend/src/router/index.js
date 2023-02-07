@@ -48,7 +48,7 @@ const routes = [
         params: true
     },
     {
-        path: '/temp',
+        path: '/admin/edit-train',
         name: 'editTrain',
         component: EditTrain,
         params: true,

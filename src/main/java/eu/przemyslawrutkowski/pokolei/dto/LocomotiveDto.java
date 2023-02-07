@@ -15,5 +15,6 @@ public class LocomotiveDto {
     private String drivingSpeed;
     private String weight;
     private String pictureLink;
+    private int order;
     private String additionalInfo;
 }

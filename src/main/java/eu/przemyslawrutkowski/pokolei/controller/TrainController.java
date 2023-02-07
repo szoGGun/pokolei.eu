@@ -48,10 +48,41 @@ public class TrainController {
         return trains;
     }
 
+    @GetMapping("/{trainId}/cars")
+    public List<TrainCarDto> getCarsByTrainId(@PathVariable Long trainId) {
+        List<Object[]> carsAndOrders = trainCarOrderRepository.findCarsByTrainId(trainId);
+        List<TrainCarDto> cars = new ArrayList<>();
+        for (Object[] carAndOrder : carsAndOrders) {
+            Car car = (Car) carAndOrder[0];
+            int order = (int) carAndOrder[1];
+            int carNumber = (int) carAndOrder[2];
+            String carAdditionalInfo = (String) carAndOrder[3];
+            Long amenityId = car.getAmenities().getAmenityId();
+            Amenities amenities = amenitiesRepository.findAmenitiesByAmenityId(amenityId);
+            cars.add(createTrainCarDto(car, order, carNumber, carAdditionalInfo, amenities));
+        }
+        return cars;
+    }
+
+    @GetMapping("/{trainId}/locomotive")
+    public List<TrainLocomotiveDto> getLocomotiveByTrainId(@PathVariable Long trainId) {
+        List<Object[]> locomotivesAndOrders = trainLocomotiveOrderRepository.findLocomotiveByTrainId(trainId);
+        List<TrainLocomotiveDto> locomotives = new ArrayList<>();
+        for (Object[] locomotiveAndOrder : locomotivesAndOrders) {
+            Locomotive locomotive = (Locomotive) locomotiveAndOrder[0];
+            int order = (int) locomotiveAndOrder[1];
+            String locomotiveAdditionalInfo = (String) locomotiveAndOrder[2];
+            locomotives.add(new TrainLocomotiveDto(locomotive.getLocomotiveId(), locomotive.getName(),
+                    locomotive.getDrivingSpeed(), locomotive.getWeight(), locomotive.getPictureLink(), locomotiveAdditionalInfo, order));
+        }
+        return locomotives;
+    }
+
     @GetMapping("/trains/get/{trainId}")
     public ResponseEntity<TrainDto> getTrain(@PathVariable Long trainId) {
         Train train = trainRepository.findById(trainId).orElseThrow(() -> new ResourceNotFoundException("Train not found with id: " + trainId));
         TrainDto trainDto = new TrainDto();
+        trainDto.setTrainId(train.getTrainId());
         trainDto.setTrainNumber(train.getTrainNumber());
         trainDto.setTrainName(train.getTrainName());
         trainDto.setRoute(train.getRoute());
@@ -131,34 +162,71 @@ public class TrainController {
         return new ResponseEntity<>(train, HttpStatus.CREATED);
     }
 
-    @GetMapping("/{trainId}/cars")
-    public List<TrainCarDto> getCarsByTrainId(@PathVariable Long trainId) {
-        List<Object[]> carsAndOrders = trainCarOrderRepository.findCarsByTrainId(trainId);
-        List<TrainCarDto> cars = new ArrayList<>();
-        for (Object[] carAndOrder : carsAndOrders) {
-            Car car = (Car) carAndOrder[0];
-            int order = (int) carAndOrder[1];
-            int carNumber = (int) carAndOrder[2];
-            String carAdditionalInfo = (String) carAndOrder[3];
-            Long amenityId = car.getAmenities().getAmenityId();
-            Amenities amenities = amenitiesRepository.findAmenitiesByAmenityId(amenityId);
-            cars.add(createTrainCarDto(car, order, carNumber, carAdditionalInfo, amenities));
+    @PutMapping("/trains/edit")
+    public ResponseEntity<TrainDto> editTrain(@RequestBody TrainDto trainDto) {
+        Train train = trainRepository.findById(trainDto.getTrainId())
+                .orElseThrow(() -> new ResourceNotFoundException("Train not found with id: " + trainDto.getTrainId()));
+
+        train.setTrainNumber(trainDto.getTrainNumber());
+        train.setTrainName(trainDto.getTrainName());
+        train.setRoute(trainDto.getRoute());
+        train.setRunningDates(trainDto.getRunningDates());
+        train.setAdditionalInfo(trainDto.getAdditionalInfo());
+
+        List<TrainCarOrder> currentTrainCarOrders = trainCarOrderRepository.findByTrain(train);
+        trainCarOrderRepository.deleteAll(currentTrainCarOrders);
+
+        train.getTrainCarOrders().clear();
+        for (CarDto carDto : trainDto.getSelectedCars()) {
+            Car car = carService.getCarById(carDto.getCarId());
+            TrainCarOrder trainCarOrder = trainCarOrderRepository.findByTrainAndCar(train, car);
+            if (trainCarOrder == null) {
+                trainCarOrder = new TrainCarOrder();
+            }
+            trainCarOrder.setCarAdditionalInfo(carDto.getAdditionalInfo());
+            trainCarOrder.setCarNumber(carDto.getCarNumber());
+            trainCarOrder.setCar(carService.getCarById(carDto.getCarId()));
+            trainCarOrder.setTrain(train);
+            train.getTrainCarOrders().add(trainCarOrder);
         }
-        return cars;
+
+        List<TrainLocomotiveOrder> currentTrainLocomotiveOrders = trainLocomotiveOrderRepository.findByTrain(train);
+        trainLocomotiveOrderRepository.deleteAll(currentTrainLocomotiveOrders);
+
+        train.getTrainLocomotiveOrders().clear();
+        for (LocomotiveDto locomotiveDto : trainDto.getSelectedLocomotives()) {
+            Locomotive locomotive = locomotiveService.getLocomotiveById(locomotiveDto.getLocomotiveId());
+            TrainLocomotiveOrder trainLocomotiveOrder = trainLocomotiveOrderRepository.findByTrainAndLocomotive(train, locomotive);
+            if (trainLocomotiveOrder == null) {
+                trainLocomotiveOrder = new TrainLocomotiveOrder();
+            }
+            trainLocomotiveOrder.setLocomotiveAdditionalInfo(locomotiveDto.getAdditionalInfo());
+            trainLocomotiveOrder.setLocomotive(locomotiveService.getLocomotiveById(locomotiveDto.getLocomotiveId()));
+            trainLocomotiveOrder.setTrain(train);
+            train.getTrainLocomotiveOrders().add(trainLocomotiveOrder);
+        }
+
+        train = trainRepository.save(train);
+
+        TrainDto updatedTrainDto = new TrainDto();
+        updatedTrainDto.setTrainId(train.getTrainId());
+        updatedTrainDto.setTrainNumber(train.getTrainNumber());
+        updatedTrainDto.setTrainName(train.getTrainName());
+        updatedTrainDto.setRoute(train.getRoute());
+        updatedTrainDto.setRunningDates(train.getRunningDates());
+        updatedTrainDto.setAdditionalInfo(train.getAdditionalInfo());
+        updatedTrainDto.setSelectedCars(trainDto.getSelectedCars());
+        updatedTrainDto.setSelectedLocomotives(trainDto.getSelectedLocomotives());
+
+        return ResponseEntity.ok(updatedTrainDto);
     }
 
-    @GetMapping("/{trainId}/locomotive")
-    public List<TrainLocomotiveDto> getLocomotiveByTrainId(@PathVariable Long trainId) {
-        List<Object[]> locomotivesAndOrders = trainLocomotiveOrderRepository.findLocomotiveByTrainId(trainId);
-        List<TrainLocomotiveDto> locomotives = new ArrayList<>();
-        for (Object[] locomotiveAndOrder : locomotivesAndOrders) {
-            Locomotive locomotive = (Locomotive) locomotiveAndOrder[0];
-            int order = (int) locomotiveAndOrder[1];
-            String locomotiveAdditionalInfo = (String) locomotiveAndOrder[2];
-            locomotives.add(new TrainLocomotiveDto(locomotive.getLocomotiveId(), locomotive.getName(),
-                    locomotive.getDrivingSpeed(), locomotive.getWeight(), locomotive.getPictureLink(), locomotiveAdditionalInfo, order));
-        }
-        return locomotives;
+    @DeleteMapping("/trains/delete/{trainId}")
+    public ResponseEntity<Void> deleteTrain(@PathVariable Long trainId) {
+        Train train = trainRepository.findById(trainId)
+                .orElseThrow(() -> new ResourceNotFoundException("Train not found with id: " + trainId));
+        trainRepository.delete(train);
+        return ResponseEntity.noContent().build();
     }
 
     private TrainCarDto createTrainCarDto(Car car, int order, int carNumber, String carAdditionalInfo, Amenities amenities) {

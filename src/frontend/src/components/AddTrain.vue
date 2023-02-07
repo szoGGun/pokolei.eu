@@ -245,6 +245,7 @@ export default {
       })
           .then(res => res.json())
           .then(() => {
+            this.$router.push('/admin');
           })
           .catch(err => {
             console.error(err)
