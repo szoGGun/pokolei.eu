@@ -24,7 +24,7 @@
       <div class="border shadow">
         <div class="form-outline p-2 d-flex align-items-center bg-dark">
           <label class="text-white">Szukaj:</label>
-          <input type="search" id="trainInput" v-model="this.inputValue" class="form-control" placeholder="Wpisz nazwę numer lub nazwę pociągu..." aria-label="Szukaj" @keyup="search"/>
+          <input type="search" id="trainInput" v-model="this.searchInput" class="form-control" placeholder="Wpisz nazwę numer lub nazwę pociągu..." aria-label="Szukaj" @keyup="search"/>
         </div>
         <table class="table table-striped table-bordered">
           <thead class="table-dark">
@@ -65,16 +65,21 @@ export default {
   data() {
     return {
       trains: [],
-      inputValue: '',
+      searchInput: ''
     }
   },
   created() {
+    this.searchInput = this.$route.params.searchTerm || '';
     this.search();
   },
   methods: {
-    async search() {
-      const res = await fetch(`http://localhost:3081/api/trains/search?searchTerm=${this.inputValue}`);
-      this.trains = await res.json();
+    search() {
+      fetch(`http://localhost:3081/api/trains/search?searchTerm=${this.searchInput}`)
+          .then(res => res.json())
+          .then(data => {
+            this.trains = data;
+            this.trains.sort((a, b) => (a.trainNumber > b.trainNumber) ? 1 : -1);
+          });
     },
     goToTrainComposition(trainId, trainNumber, trainName) {
       this.$router.push({
@@ -97,16 +102,20 @@ export default {
   -o-background-size: cover;
   background-size: cover;
 }
+
 #trains-table {
   background-color: #E5E5E5;
 }
+
 #headerTitle {
   font-weight: bold;
 }
+
 table {
   background-color: #ffffff;
   margin: 0;
 }
+
 label {
   margin-left: 0.4rem;
   margin-right: 0.8rem;

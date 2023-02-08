@@ -110,7 +110,7 @@ export default {
   computed: {
     filteredTrains() {
       return this.trains.filter(train => train.trainName.toLowerCase().includes(this.trainNameFilter.toLowerCase()))
-          .sort((a, b) => a.trainId - b.trainId);
+          .sort((a, b) => (a.trainNumber > b.trainNumber) ? 1 : -1);
     },
   }
 }

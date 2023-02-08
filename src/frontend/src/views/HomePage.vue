@@ -14,12 +14,13 @@
 
               <div class="border p-md-5 bg-white rounded shadow">
                 <h2>Wyszukiwarka zestawień</h2>
-                <form>
+                <form @submit.prevent="searchTrains">
                   <div class="form-group">
                     <label for="trainNumber">Jakiego pociągu szukasz?</label>
                     <input id="trainNumber"
                            placeholder="Wpisz numer pociągu"
                            class="form-control mt-3"
+                           v-model="trainInfo"
                     >
                     <small id="trainHelp" class="form-text text-muted ">Pociągu możesz wyszukać za pomocą jego nazwy np.
                       Sobieski, ale również w formie numeru np. 106 </small>
@@ -107,7 +108,14 @@ export default {
     Footer,
   },
   data() {
-
+    return {
+      trainInfo: '',
+    }
+  },
+  methods: {
+    searchTrains() {
+      this.$router.push({ name: 'trains', params: { searchTerm: this.trainInfo } })
+    }
   }
 }
 </script>
