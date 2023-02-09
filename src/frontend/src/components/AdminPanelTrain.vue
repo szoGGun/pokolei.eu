@@ -2,14 +2,14 @@
   <div class="container-fluid m-0 p-0">
     <div id="trains-table" class="full-height p-5">
       <div class="row pb-5 h-100 d-flex align-items-center justify-content-center">
-        <h1 class="ml-md-4 mr-md-4 p-3">Lista wszystkich lokomotyw w bazie</h1>
+        <h1 class="ml-md-4 mr-md-4 p-3">Lista wszystkich pociągów w bazie</h1>
       </div>
 
       <div class="form-outline p-2 d-flex align-items-center">
         <label for="trainNameFilter" style="font-weight: bold">Filtruj po nazwie:</label>
         <input type="text" v-model="trainNameFilter" class="form-control" id="trainNameFilter">
       </div>
-      <button class="btn btn-primary add-button" @click="redirectToAddTrain">Dodaj pociąg</button>
+      <button class="btn btn-warning add-button" @click="redirectToAddTrain">Dodaj pociąg</button>
       <table class="table table-striped table-bordered">
         <thead class="table-dark">
         <tr>

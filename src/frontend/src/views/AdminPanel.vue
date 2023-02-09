@@ -1,9 +1,10 @@
 <template>
   <div>
     <div>
-      <button class="btn btn-dark" @click="displayPanel('cars')">Cars</button>
-      <button class="btn btn-dark" @click="displayPanel('locomotives')">Locomotives</button>
-      <button class="btn btn-dark" @click="displayPanel('trains')">Trains</button>
+      <button class="btn btn-primary" @click="displayPanel('cars')">Cars</button>
+      <button class="btn btn-primary" @click="displayPanel('locomotives')">Locomotives</button>
+      <button class="btn btn-primary" @click="displayPanel('trains')">Trains</button>
+      <button class="btn btn-danger" @click="logout">Logout</button>
     </div>
 
     <div id="cars-button"  v-if="panelType === 'cars'">
@@ -41,6 +42,10 @@ export default {
     displayPanel(panelType) {
       this.panelType = panelType;
     },
+    logout() {
+      localStorage.removeItem("token");
+      this.$router.push({ path: "/" });
+    }
   }
 };
 </script>

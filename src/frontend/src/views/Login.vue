@@ -35,30 +35,30 @@ export default {
   },
   methods: {
     login() {
-      fetch("api/auth/signin", {
+      let requestBody = {
+        username: this.username,
+        password: this.password
+      };
+
+      fetch("http://localhost:3081/api/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
         },
-        body: JSON.stringify({
-          username: this.username,
-          password: this.password
-        })
+        body: JSON.stringify(requestBody)
       })
-          .then(response => {
-            if (response.status === 200) {
-              this.$router.push({name: "admin"});
-            } else {
-              throw new Error("Invalid credentials");
-            }
+          .then(response => response.json())
+          .then(data => {
+            console.log(data);
+            localStorage.setItem("token", data.token);
+            this.$router.push({ name: 'admin'})
           })
           .catch(error => {
-            console.log(error);
-            this.error = "Invalid credentials";
+            console.error(error);
           });
     }
   }
-}
+};
 </script>
 
 <style scoped>

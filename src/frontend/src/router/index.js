@@ -9,6 +9,15 @@ import TrainComposition from "@/views/TrainComposition.vue";
 import AddTrain from "@/components/AddTrain.vue";
 import EditTrain from "@/components/EditTrain.vue";
 
+const checkAuth = (to, from, next) => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+        next({ name: "login" });
+    } else {
+        next();
+    }
+};
+
 const routes = [
     {
         path: '/',
@@ -29,7 +38,8 @@ const routes = [
     {
         path: '/admin',
         name: 'admin',
-        component: AdminPanel
+        component: AdminPanel,
+        beforeEnter: checkAuth
     },
     {
         path: '/login',
@@ -53,13 +63,15 @@ const routes = [
         name: 'editTrain',
         component: EditTrain,
         params: true,
-        props: true
+        props: true,
+        beforeEnter: checkAuth
     },
     {
         path: '/admin/add-train',
         name: 'addTrain',
         component: AddTrain,
-        params: true
+        params: true,
+        beforeEnter: checkAuth
     },
 ]
 
