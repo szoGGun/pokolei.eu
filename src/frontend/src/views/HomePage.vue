@@ -41,27 +41,25 @@
       <div class="row">
         <div class="col-lg">
           <img src="../assets/icons/timetableRail.png" height="120" class="m-4">
-          <h4 class="ml-md-4 mr-md-4 color-indigo">Tablice Informacyjne</h4>
+          <h4 class="ml-md-4 mr-md-4 color-indigo">Tablice przyjazdów</h4>
           <h5 class="ml-md-4 mr-md-4">
-            Czekasz na stacji, ale najbliższa tablica informacyjna jest daleko lub nie ma jej wcale? Sprawdź najbliższe
-            odjazdy
-            z twojej stacji.
-          </h5>
-        </div>
-        <div class="col-lg">
-          <img src="../assets/icons/carriage.png" height="120" class="m-4">
-          <h4 class="ml-md-4 mr-md-4 color-indigo">Zestawienia i schematy wagonów</h4>
-          <h5 class="ml-md-4 mr-md-4">
-            Chcesz podróżować z bliską osobą, ale nie wiesz czy miejsca na bilecie który kupujesz są obok siebie?
-            Sprawdź zestawienia i schematy wagonów.
+            Czekasz na stacji, a pociąg nie pojawia się? Sprawdź tablicę przyjazdów może po prostu ma opóźnienie.
           </h5>
         </div>
         <div class="col-lg">
           <img src="../assets/icons/timetable.png" height="120" class="m-4">
-          <h4 class="ml-md-4 mr-md-4 color-indigo">Tablice z historią opóźnień</h4>
+          <h4 class="ml-md-4 mr-md-4 color-indigo">Tablice odjazdów</h4>
           <h5 class="ml-md-4 mr-md-4">
-            Jesteś zmuszony wybrać relację z przesiadką, ale boisz się, że twój pierwszy pociąg się spóźni?
-            Sprawdź historyczne opóźnienia pociągów.
+            Chciałbyś zamówić jedzenie ale pociąg stoi na peronie i nie wiesz czy zdążysz? Sprawdź tablicę odjazdów.
+          </h5>
+        </div>
+        <div class="col-lg">
+
+            <img src="../assets/icons/carriage.png" height="120" class="m-4">
+            <h4 class="ml-md-4 mr-md-4 color-indigo">Zestawienia i schematy wagonów</h4>
+            <h5 class="ml-md-4 mr-md-4">
+              Chcesz podróżować z bliską osobą, ale nie wiesz czy miejsca na bilecie który kupujesz są obok siebie?
+              Sprawdź zestawienia i schematy wagonów.
           </h5>
         </div>
       </div>
