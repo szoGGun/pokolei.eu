@@ -22,7 +22,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr v-for="(locomotive, order) in selectedLocomotives" :key="locomotive.locomotiveId">
+                <tr v-for="(locomotive, order) in selectedLocomotives" :key="locomotive.order">
                   <td></td>
                   <td></td>
                   <td>{{ locomotive.name }}</td>
@@ -46,7 +46,7 @@
                     <button class="btn btn-danger btn-sm m-2" @click="removeItem(order, 'locomotives')">Usuń</button>
                   </td>
                 </tr>
-                <tr v-for="(car, order) in selectedCars" :key="car.carId">
+                <tr v-for="(car, order) in selectedCars" :key="car.order">
                   <td><input type="text" v-model="car.carNumber"></td>
                   <td>{{ car.carType }}</td>
                   <td>{{ car.name }}</td>

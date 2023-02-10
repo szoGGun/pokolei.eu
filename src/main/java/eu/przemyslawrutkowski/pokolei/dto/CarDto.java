@@ -20,4 +20,5 @@ public class CarDto {
     private AmenitiesDto amenities;
     private int CarNumber;
     private String additionalInfo;
+    private int order;
 }

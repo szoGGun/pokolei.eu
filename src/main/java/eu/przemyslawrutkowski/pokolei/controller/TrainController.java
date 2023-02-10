@@ -12,8 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 @RestController
 @AllArgsConstructor
@@ -70,6 +69,7 @@ public class TrainController {
         trainDto.setRoute(train.getRoute());
         trainDto.setRunningDates(train.getRunningDates());
         trainDto.setAdditionalInfo(train.getAdditionalInfo());
+
         List<TrainCarOrder> trainCarOrders = train.getTrainCarOrders();
         CarDto[] selectedCars = new CarDto[trainCarOrders.size()];
         for (int i = 0; i < trainCarOrders.size(); i++) {
@@ -83,8 +83,10 @@ public class TrainController {
             carDto.setPictureLink(trainCarOrders.get(i).getCar().getPictureLink());
             carDto.setSchemaLink(trainCarOrders.get(i).getCar().getSchemaLink());
             carDto.setTravelClass(trainCarOrders.get(i).getCar().getTravelClass());
+            carDto.setOrder(trainCarOrders.get(i).getCarOrder());
             selectedCars[i] = carDto;
         }
+        Arrays.sort(selectedCars, Comparator.comparingInt(CarDto::getOrder));
         trainDto.setSelectedCars(selectedCars);
 
         List<TrainLocomotiveOrder> trainLocomotiveOrders = train.getTrainLocomotiveOrders();
@@ -97,8 +99,10 @@ public class TrainController {
             locomotiveDto.setName(trainLocomotiveOrders.get(i).getLocomotive().getName());
             locomotiveDto.setPictureLink(trainLocomotiveOrders.get(i).getLocomotive().getPictureLink());
             locomotiveDto.setWeight(trainLocomotiveOrders.get(i).getLocomotive().getWeight());
+            locomotiveDto.setOrder(trainLocomotiveOrders.get(i).getLocomotiveOrder());
             selectedLocomotives[i] = locomotiveDto;
         }
+        Arrays.sort(selectedLocomotives, Comparator.comparingInt(LocomotiveDto::getOrder));
         trainDto.setSelectedLocomotives(selectedLocomotives);
 
         return new ResponseEntity<>(trainDto, HttpStatus.OK);
@@ -159,6 +163,7 @@ public class TrainController {
         trainCarOrderRepository.deleteAll(currentTrainCarOrders);
 
         train.getTrainCarOrders().clear();
+        int carOrder = 1;
         for (CarDto carDto : trainDto.getSelectedCars()) {
             Car car = carService.getCarById(carDto.getCarId());
             TrainCarOrder trainCarOrder = trainCarOrderRepository.findByTrainAndCar(train, car);
@@ -169,13 +174,16 @@ public class TrainController {
             trainCarOrder.setCarNumber(carDto.getCarNumber());
             trainCarOrder.setCar(carService.getCarById(carDto.getCarId()));
             trainCarOrder.setTrain(train);
+            trainCarOrder.setCarOrder(carOrder);
             train.getTrainCarOrders().add(trainCarOrder);
+            carOrder++;
         }
 
         List<TrainLocomotiveOrder> currentTrainLocomotiveOrders = trainLocomotiveOrderRepository.findByTrain(train);
         trainLocomotiveOrderRepository.deleteAll(currentTrainLocomotiveOrders);
 
         train.getTrainLocomotiveOrders().clear();
+        int locomotiveOrder = 1;
         for (LocomotiveDto locomotiveDto : trainDto.getSelectedLocomotives()) {
             Locomotive locomotive = locomotiveService.getLocomotiveById(locomotiveDto.getLocomotiveId());
             TrainLocomotiveOrder trainLocomotiveOrder = trainLocomotiveOrderRepository.findByTrainAndLocomotive(train, locomotive);
@@ -185,7 +193,9 @@ public class TrainController {
             trainLocomotiveOrder.setLocomotiveAdditionalInfo(locomotiveDto.getAdditionalInfo());
             trainLocomotiveOrder.setLocomotive(locomotiveService.getLocomotiveById(locomotiveDto.getLocomotiveId()));
             trainLocomotiveOrder.setTrain(train);
+            trainLocomotiveOrder.setLocomotiveOrder(locomotiveOrder);
             train.getTrainLocomotiveOrders().add(trainLocomotiveOrder);
+            locomotiveOrder++;
         }
 
         train = trainRepository.save(train);
