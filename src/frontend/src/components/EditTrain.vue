@@ -75,7 +75,7 @@
             <!--Formularz dodawania pociągu-->
             <form>
               <div class="form-group">
-                <label for="trainNumber">Numer:</label>
+                <label for="trainNumber"><span style="color: red"><strong>*</strong></span> Numer:</label>
                 <input pattern="[0-9/()]" id="trainNumber" v-model="trainNumber" required>
               </div>
               <div class="form-group">
@@ -83,11 +83,11 @@
                 <input type="text" id="trainName" v-model="trainName">
               </div>
               <div class="form-group">
-                <label for="route">Trasa:</label>
+                <label for="route"><span style="color: red"><strong>*</strong></span> Trasa:</label>
                 <input type="text" id="route" v-model="route" required>
               </div>
               <div class="form-group">
-                <label for="runningDates">Kursuje:</label>
+                <label for="runningDates"><span style="color: red"><strong>*</strong></span> Kursuje:</label>
                 <input type="text" id="runningDates" v-model="runningDates" required>
               </div>
               <div class="form-group">
@@ -242,10 +242,26 @@ export default {
             this.locomotives = data;
           });
     },
-    submitForm() {
+    validateSubmitForm(){
+      let isValid = true;
+      this.selectedCars.forEach(car => {
+        if (!car.carNumber) {
+          alert('Nie można zapisać pociągu, ponieważ nie wszystkie numery wagonów zostały wypełnione');
+          isValid = false;
+        }
+      });
+      if((!this.trainNumber || !this.route || !this.runningDates)){
+        alert('Nie można zapisać pociągu, ponieważ nie wszystkie wymagane pola zostały wypełnione');
+        isValid = false;
+      }
       if (!this.trainNumber.match(/^[0-9()/\s]+$/)) {
         alert('Numer pociągu może zawierać tylko cyfry, nawiasy i ukośniki!')
-      } else if (this.trainNumber && this.route && this.runningDates) {
+        isValid = false;
+      }
+      return isValid;
+    },
+    submitForm() {
+      if (this.validateSubmitForm()) {
         let editTrainData = {
           trainId: this.trainId,
           trainNumber: this.trainNumber,
@@ -257,8 +273,6 @@ export default {
           selectedLocomotives: this.selectedLocomotives
         };
         this.handleFormSubmit(editTrainData);
-      } else {
-        alert('Wypełnij wszystkie pola!')
       }
     },
     handleFormSubmit(editTrainData) {

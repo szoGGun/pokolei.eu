@@ -4,7 +4,7 @@
     <form>
       <div class="form-group">
         <label for="name">Nazwa:</label>
-        <input type="text" id="name" v-model="name" required>
+        <input type="text" id="name" v-model="name">
       </div>
       <div class="form-group">
         <label for="weight">Waga:</label>
@@ -51,6 +51,10 @@ export default {
           });
     },
     submitForm() {
+      if (!this.name) {
+        alert("Nazwa nie może być pusta!");
+        return;
+      }
       let editLocomotiveData = {
         name: this.name,
         weight: this.weight,

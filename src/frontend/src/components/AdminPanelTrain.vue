@@ -9,7 +9,7 @@
         <label for="trainNameFilter" style="font-weight: bold">Filtruj po nazwie:</label>
         <input type="text" v-model="trainNameFilter" class="form-control" id="trainNameFilter">
       </div>
-      <button class="btn btn-warning add-button" @click="redirectToAddTrain">Dodaj pociąg</button>
+      <button class="btn btn-primary add-button" @click="redirectToAddTrain">Dodaj pociąg</button>
       <table class="table table-striped table-bordered">
         <thead class="table-dark">
         <tr>
