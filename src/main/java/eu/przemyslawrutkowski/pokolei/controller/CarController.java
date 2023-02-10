@@ -18,7 +18,6 @@ import java.util.List;
 public class CarController {
 
     private final CarRepository carRepository;
-
     private final TrainCarOrderRepository trainCarOrderRepository;
 
     @GetMapping("/cars")

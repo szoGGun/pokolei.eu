@@ -6,6 +6,7 @@ import eu.przemyslawrutkowski.pokolei.errors.ResourceNotFoundException;
 import eu.przemyslawrutkowski.pokolei.repository.*;
 import eu.przemyslawrutkowski.pokolei.service.CarService;
 import eu.przemyslawrutkowski.pokolei.service.LocomotiveService;
+import eu.przemyslawrutkowski.pokolei.service.TrainService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,9 +26,9 @@ public class TrainController {
 
     private final TrainLocomotiveOrderRepository trainLocomotiveOrderRepository;
 
-    private final AmenitiesRepository amenitiesRepository;
-
     private final CarService carService;
+
+    private final TrainService trainService;
 
     private final LocomotiveService locomotiveService;
 
@@ -44,38 +45,19 @@ public class TrainController {
         if (searchTerm != null) {
             trains.addAll(trainRepository.findByNumberOrName(searchTerm));
         }
-
         return trains;
     }
 
     @GetMapping("/{trainId}/cars")
     public List<TrainCarDto> getCarsByTrainId(@PathVariable Long trainId) {
         List<Object[]> carsAndOrders = trainCarOrderRepository.findCarsByTrainId(trainId);
-        List<TrainCarDto> cars = new ArrayList<>();
-        for (Object[] carAndOrder : carsAndOrders) {
-            Car car = (Car) carAndOrder[0];
-            int order = (int) carAndOrder[1];
-            int carNumber = (int) carAndOrder[2];
-            String carAdditionalInfo = (String) carAndOrder[3];
-            Long amenityId = car.getAmenities().getAmenityId();
-            Amenities amenities = amenitiesRepository.findAmenitiesByAmenityId(amenityId);
-            cars.add(createTrainCarDto(car, order, carNumber, carAdditionalInfo, amenities));
-        }
-        return cars;
+        return trainService.createTrainCarDtos(carsAndOrders);
     }
 
     @GetMapping("/{trainId}/locomotive")
     public List<TrainLocomotiveDto> getLocomotiveByTrainId(@PathVariable Long trainId) {
         List<Object[]> locomotivesAndOrders = trainLocomotiveOrderRepository.findLocomotiveByTrainId(trainId);
-        List<TrainLocomotiveDto> locomotives = new ArrayList<>();
-        for (Object[] locomotiveAndOrder : locomotivesAndOrders) {
-            Locomotive locomotive = (Locomotive) locomotiveAndOrder[0];
-            int order = (int) locomotiveAndOrder[1];
-            String locomotiveAdditionalInfo = (String) locomotiveAndOrder[2];
-            locomotives.add(new TrainLocomotiveDto(locomotive.getLocomotiveId(), locomotive.getName(),
-                    locomotive.getDrivingSpeed(), locomotive.getWeight(), locomotive.getPictureLink(), locomotiveAdditionalInfo, order));
-        }
-        return locomotives;
+        return trainService.createTrainLocomotiveDtos(locomotivesAndOrders);
     }
 
     @GetMapping("/trains/get/{trainId}")
@@ -227,13 +209,5 @@ public class TrainController {
                 .orElseThrow(() -> new ResourceNotFoundException("Train not found with id: " + trainId));
         trainRepository.delete(train);
         return ResponseEntity.noContent().build();
-    }
-
-    private TrainCarDto createTrainCarDto(Car car, int order, int carNumber, String carAdditionalInfo, Amenities amenities) {
-        return new TrainCarDto(car.getCarId(), car.getCarType(), car.getName(), car.getNumberOfSeats(),
-                car.getTravelClass(), amenities.getAirConditioning(), amenities.getBarCar(), amenities.getBicycles(), amenities.getCompartmentless(), amenities.getDiningCar(),
-                amenities.getDisabledLift(), amenities.getDisabledSeats(), amenities.getElectricalOutlets(), amenities.getSleepingCar(),
-                amenities.getToilet(), amenities.getWifi(), car.getPictureLink(), car.getSchemaLink(), carNumber,
-                order, carAdditionalInfo);
     }
 }
