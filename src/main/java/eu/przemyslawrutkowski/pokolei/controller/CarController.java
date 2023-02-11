@@ -38,6 +38,7 @@ public class CarController {
         Car car = carRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Car not found with id: " + id));
 
+        car.setCarType(editCarData.getCarType());
         car.setName(editCarData.getName());
         car.setNumberOfSeats(editCarData.getNumberOfSeats());
         car.setTravelClass(editCarData.getTravelClass());

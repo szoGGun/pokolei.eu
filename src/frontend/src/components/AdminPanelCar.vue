@@ -42,18 +42,10 @@
           <td>{{ car.name }}</td>
           <td><img :src="getCarUrl(car.pictureLink)" alt=""/></td>
           <td>{{ car.numberOfSeats }}</td>
-          <td>{{ car.travelClass }}</td>
-          <td>{{ car.amenities.airConditioning ? '✔' : '' }}</td>
-          <td>{{ car.amenities.barCar ? '✔' : '' }}</td>
-          <td>{{ car.amenities.bicycles ? '✔' : '' }}</td>
-          <td>{{ car.amenities.compartmentless ? '✔' : '' }}</td>
-          <td>{{ car.amenities.diningCar ? '✔' : '' }}</td>
-          <td>{{ car.amenities.disabledLift ? '✔' : '' }}</td>
-          <td>{{ car.amenities.disabledSeats ? '✔' : '' }}</td>
-          <td>{{ car.amenities.electricalOutlets ? '✔' : '' }}</td>
-          <td>{{ car.amenities.sleepingCar ? '✔' : '' }}</td>
-          <td>{{ car.amenities.toilet ? '✔' : '' }}</td>
-          <td>{{ car.amenities.wifi ? '✔' : '' }}</td>
+          <td>{{ car.travelClass === 3 ? '1/2' : car.travelClass }}</td>
+          <template v-for="amenity in amenitiesList" :key="amenity.amenityId">
+            <td>{{ car.amenities[amenity] ? '✔' : '' }}</td>
+          </template>
           <td>
             <div v-if="car.schemaLink">
               <img @click="showSchema(car.schemaLink, car.name)" id="schema"
@@ -117,6 +109,19 @@ export default {
       nameFilter: '',
       selectedCarId: null,
       showConfirmModal: false,
+      amenitiesList: [
+        'airConditioning',
+        'barCar',
+        'bicycles',
+        'compartmentless',
+        'diningCar',
+        'disabledLift',
+        'disabledSeats',
+        'electricalOutlets',
+        'sleepingCar',
+        'toilet',
+        'wifi',
+      ],
     };
   },
   created() {
@@ -189,7 +194,7 @@ table {
 }
 
 .modal-dialog {
-  position: relative;
+  position: fixed;
   display: table;
   overflow-y: auto;
   overflow-x: auto;
@@ -205,7 +210,7 @@ table {
 }
 .modal-overlay {
   background-color: rgba(0, 0, 0, 0.5);
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;

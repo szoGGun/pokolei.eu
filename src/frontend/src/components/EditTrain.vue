@@ -242,15 +242,19 @@ export default {
             this.locomotives = data;
           });
     },
-    validateSubmitForm(){
+    validateSubmitForm() {
       let isValid = true;
+      let showMessage = false;
       this.selectedCars.forEach(car => {
         if (!car.carNumber) {
-          alert('Nie można zapisać pociągu, ponieważ nie wszystkie numery wagonów zostały wypełnione');
+          if (!showMessage) {
+            alert('Nie można zapisać pociągu, ponieważ nie wszystkie numery wagonów zostały wypełnione');
+            showMessage = true;
+          }
           isValid = false;
         }
       });
-      if((!this.trainNumber || !this.route || !this.runningDates)){
+      if ((!this.trainNumber || !this.route || !this.runningDates)) {
         alert('Nie można zapisać pociągu, ponieważ nie wszystkie wymagane pola zostały wypełnione');
         isValid = false;
       }
