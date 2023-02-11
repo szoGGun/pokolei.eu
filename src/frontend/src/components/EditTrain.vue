@@ -135,7 +135,7 @@
               <td><img :src="getPhotoUrl(car.pictureLink, 'cars')" alt=""/></td>
               <td>
                 <div style="display: flex; justify-content: center">
-                  <button class="btn btn-success" @click="selectCar(car.carId)">Wybierz</button>
+                  <button class="btn btn-success" @click="selectCar(car.carId)">Dodaj</button>
                 </div>
               </td>
             </tr>

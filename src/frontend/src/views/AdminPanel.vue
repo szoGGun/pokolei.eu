@@ -1,10 +1,10 @@
 <template>
   <div>
     <div>
-      <button class="btn btn-primary" @click="displayPanel('cars')">Cars</button>
-      <button class="btn btn-primary" @click="displayPanel('locomotives')">Locomotives</button>
-      <button class="btn btn-primary" @click="displayPanel('trains')">Trains</button>
-      <button class="btn btn-danger" @click="logout">Logout</button>
+      <button class="btn btn-primary" @click="displayPanel('cars')">Wagony</button>
+      <button class="btn btn-primary" @click="displayPanel('locomotives')">Lokomotywy</button>
+      <button class="btn btn-primary" @click="displayPanel('trains')">Pociągi</button>
+      <button class="btn btn-danger" @click="logout">Wyloguj</button>
     </div>
 
     <div id="cars-button"  v-if="panelType === 'cars'">

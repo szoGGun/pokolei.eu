@@ -15,8 +15,8 @@
         <thead class="table-dark">
         <tr>
           <th>ID</th>
-          <th>Wygląd</th>
           <th>Nazwa</th>
+          <th>Wygląd</th>
           <th>Prędkość</th>
           <th>Waga</th>
           <th>Akcje</th>

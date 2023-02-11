@@ -8,7 +8,7 @@
             <div class="container pt-5 border p-md-5 mt-5 bg-white rounded shadow">
               <h1 class="ml-md-4 mr-md-4 p-3">Zestawienia pociągów</h1>
               <h5 class="ml-md-4 mr-md-4 p-4">
-                Nie jesteś pewny w którym miejscu powinieneś usiąść w pociągu na który czekasz? A może nie wiesz który
+                Nie jesteś pewien, w którym miejscu powinieneś usiąść w pociągu, na który czekasz? A może nie wiesz, który
                 w kolejności jest twój wagon? Nie martw się, pomożemy Ci w tym problemie. Wystarczy, że wpiszesz nazwę
                 pociągu, a my wyświetlimy wszystkie informacje, które Cię interesują.
               </h5>

@@ -22,8 +22,8 @@
                            class="form-control mt-3"
                            v-model="trainInfo"
                     >
-                    <small id="trainHelp" class="form-text text-muted ">Pociągu możesz wyszukać za pomocą jego nazwy np.
-                      Sobieski, ale również w formie numeru np. 106 </small>
+                    <small id="trainHelp" class="form-text text-muted ">Pociąg możesz wyszukać za pomocą jego nazwy, np.
+                      Sobieski, lub wpisać jego numer, np. 106. </small>
                     <div class="p-d-flex p-jc-center">
                       <button type="submit" class="btn btn-success mt-2 p-jc-center">Wyszukaj</button>
                     </div>
@@ -43,14 +43,14 @@
           <img src="../assets/icons/timetableRail.png" height="120" class="m-4">
           <h4 class="ml-md-4 mr-md-4 color-indigo">Tablice przyjazdów</h4>
           <h5 class="ml-md-4 mr-md-4">
-            Czekasz na stacji, a pociąg nie pojawia się? Sprawdź tablicę przyjazdów może po prostu ma opóźnienie.
+            Czekasz na stacji, a pociąg się pojawia nie? Sprawdź tablicę przyjazdów - może po prostu jest opóźnienie.
           </h5>
         </div>
         <div class="col-lg">
           <img src="../assets/icons/timetable.png" height="120" class="m-4">
           <h4 class="ml-md-4 mr-md-4 color-indigo">Tablice odjazdów</h4>
           <h5 class="ml-md-4 mr-md-4">
-            Chciałbyś zamówić jedzenie ale pociąg stoi na peronie i nie wiesz czy zdążysz? Sprawdź tablicę odjazdów.
+            Chciałbyś zamówić jedzenie, ale pociąg stoi na peronie i nie wiesz, czy zdążysz? Sprawdź tablicę odjazdów.
           </h5>
         </div>
         <div class="col-lg">
@@ -58,7 +58,7 @@
             <img src="../assets/icons/carriage.png" height="120" class="m-4">
             <h4 class="ml-md-4 mr-md-4 color-indigo">Zestawienia i schematy wagonów</h4>
             <h5 class="ml-md-4 mr-md-4">
-              Chcesz podróżować z bliską osobą, ale nie wiesz czy miejsca na bilecie który kupujesz są obok siebie?
+              Chcesz podróżować z bliską osobą, ale nie wiesz, czy miejsca na bilecie, który kupujesz, są obok siebie?
               Sprawdź zestawienia i schematy wagonów.
           </h5>
         </div>
@@ -71,7 +71,7 @@
 
         <div class="col-lg-4">
           <h2>Masz jakieś pytania albo uwagi?</h2>
-          <p>Skontaktuj się z nami wypełniając poniższy formularz.</p>
+          <p>Skontaktuj się z nami, wypełniając poniższy formularz.</p>
 
           <form>
             <div class="form-group text-left">

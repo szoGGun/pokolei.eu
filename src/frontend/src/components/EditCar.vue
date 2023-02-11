@@ -28,7 +28,7 @@
         <input type="checkbox" id="amenities.airConditioning" v-model="amenities.airConditioning">
       </div>
       <div class="form-group">
-        <label for="amenities.barCar">Wagon Barowy:</label>
+        <label for="amenities.barCar">Wagon barowy:</label>
         <input type="checkbox" id="amenities.barCar" v-model="amenities.barCar">
       </div>
       <div class="form-group">
@@ -40,7 +40,7 @@
         <input type="checkbox" id="amenities.compartmentless" v-model="amenities.compartmentless">
       </div>
       <div class="form-group">
-        <label for="amenities.diningCar">Wagon Barowy:</label>
+        <label for="amenities.diningCar">Wagon restauracyjny:</label>
         <input type="checkbox" id="amenities.diningCar" v-model="amenities.diningCar">
       </div>
       <div class="form-group">
@@ -67,7 +67,7 @@
         <label for="amenities.wifi">WI-FI:</label>
         <input type="checkbox" id="amenities.wifi" v-model="amenities.wifi">
       </div>
-      <button type="submit" class="submit-button btn btn-primary" @click.prevent="submitForm">Submit</button>
+      <button type="submit" class="submit-button btn btn-primary" @click.prevent="submitForm">Zatwierdź</button>
     </form>
   </div>
 </template>
