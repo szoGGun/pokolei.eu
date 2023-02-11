@@ -219,9 +219,13 @@ export default {
     },
     validateSubmitForm(){
       let isValid = true;
+      let showMessage = false;
       this.selectedCars.forEach(car => {
         if (!car.carNumber) {
-          alert('Nie można zapisać pociągu, ponieważ nie wszystkie numery wagonów zostały wypełnione');
+          if (!showMessage) {
+            alert('Nie można zapisać pociągu, ponieważ nie wszystkie numery wagonów zostały wypełnione');
+            showMessage = true;
+          }
           isValid = false;
         }
       });
