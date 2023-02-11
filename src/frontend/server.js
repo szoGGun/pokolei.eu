@@ -1,5 +1,5 @@
 const createClient = require("hafas-client");
-const pkpProfile = require('hafas-client/p/pkp/index.js');
+const pkpProfile = require('hafas-client/p/oebb/index.js');
 const express = require('express')
 const cors = require('cors')
 const app = express()
