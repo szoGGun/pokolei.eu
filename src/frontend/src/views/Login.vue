@@ -54,6 +54,7 @@ export default {
             this.$router.push({ name: 'admin'})
           })
           .catch(error => {
+            alert("Błędny login lub hasło")
             console.error(error);
           });
     }
