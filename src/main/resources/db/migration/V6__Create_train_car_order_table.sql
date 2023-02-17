@@ -5,7 +5,7 @@ CREATE TABLE train_car_order
     car_id              BIGINT NOT NULL,
     car_number          INT    NOT NULL,
     car_order           INT    NOT NULL,
-    car_additional_info VARCHAR,
+    car_additional_info VARCHAR(1000),
     FOREIGN KEY (train_id) REFERENCES trains (train_id),
     FOREIGN KEY (car_id) REFERENCES cars (car_id)
 );

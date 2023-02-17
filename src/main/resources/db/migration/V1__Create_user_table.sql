@@ -1,8 +1,8 @@
 create table users
 (
     user_id    serial primary key,
-    username  varchar(20),
-    password   varchar(500)
+    username  varchar(20) NOT NULL,
+    password   varchar(500) NOT NULL
 );
 
 insert into users (username, password)
