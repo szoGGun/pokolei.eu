@@ -3,7 +3,7 @@
     <div id="trains-table" class="full-height p-5">
       <div class="row p-5 mt-5">
         <div class="row pb-5 h-100 d-flex align-items-center justify-content-center">
-          <h1 class="ml-md-4 mr-md-4 p-3">Zestawienie pociągu {{ trainFullName }}</h1>
+          <h1 class="ml-md-4 mr-md-4 p-3">Zestawienie pociągu <br> {{ trainFullName }}</h1>
           <div class="row p-5">
             <table class="table table-striped table-bordered">
               <thead class="table-dark">
