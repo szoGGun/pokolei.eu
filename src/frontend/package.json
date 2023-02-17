@@ -10,21 +10,16 @@
     "start": "concurrently --kill-others \"npm run serve\" \"npm run server\""
   },
   "dependencies": {
-    "axios": "^1.2.2",
     "bootstrap": "^5.2.3",
     "concurrently": "^7.6.0",
     "cookie-parser": "^1.4.6",
     "core-js": "^3.8.3",
     "cors": "^2.8.5",
     "express": "^4.17.2",
-    "font-awesome": "^4.7.0",
     "hafas-client": "^5.22.1",
     "node-fetch": "^3.3.0",
-    "vee-validate": "^2.2.15",
     "vue": "^3.2.13",
-    "vue-router": "^4.0.13",
-    "vuex": "^4.1.0",
-    "yup": "^0.32.11"
+    "vue-router": "^4.0.13"
   },
   "devDependencies": {
     "@babel/core": "^7.12.16",
