@@ -3,7 +3,7 @@ import HomePage from "@/views/HomePage.vue";
 import DeparturesTimetable from "@/views/DeparturesTimetable.vue";
 import ArrivalsTimetable from "@/views/ArrivalsTimetable.vue";
 import AdminPanel from "@/views/AdminPanel.vue";
-import Login from "@/views/Login"
+import Login from "@/views/Login.vue"
 import Trains from "@/views/Trains.vue";
 import TrainComposition from "@/views/TrainComposition.vue";
 import AddTrain from "@/components/AddTrain.vue";
