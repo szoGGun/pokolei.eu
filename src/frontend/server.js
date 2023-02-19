@@ -1,15 +1,15 @@
 const createClient = require("hafas-client");
-const pkpProfile = require('hafas-client/p/oebb/index.js');
+const oebbProfile = require('hafas-client/p/oebb/index.js');
 const express = require('express')
 const cors = require('cors')
 const app = express()
 app.use(cors())
 
-const client = createClient(pkpProfile, 'train-api');
+const client = createClient(oebbProfile, 'train-api');
 
 app.use(require('cookie-parser')());
 
-async function getNStationInfo(station, n, endpoint) {
+async function getStationInfo(station, n, endpoint) {
     let stationInfo = [];
     for (let i = 0; i < n; i += 10) {
         try {
@@ -30,12 +30,12 @@ async function getNStationInfo(station, n, endpoint) {
     return uniqueStationInfo;
 }
 
-async function getNArrivals(station, n) {
-    return await getNStationInfo(station, n, client.arrivals);
+async function getArrivals(station, n) {
+    return await getStationInfo(station, n, client.arrivals);
 }
 
-async function getNDepartures(station, n) {
-    return await getNStationInfo(station, n, client.departures);
+async function getDepartures(station, n) {
+    return await getStationInfo(station, n, client.departures);
 }
 
 async function handleStationRequest(req, res, endpointFunc) {
@@ -70,11 +70,11 @@ async function handleStationRequest(req, res, endpointFunc) {
 }
 
 app.get("/departures", async function (req, res) {
-    handleStationRequest(req, res, getNDepartures);
+    handleStationRequest(req, res, getDepartures);
 });
 
 app.get("/arrivals", async function (req, res) {
-    handleStationRequest(req, res, getNArrivals);
+    handleStationRequest(req, res, getArrivals);
 });
 
 app.listen(process.env.PORT || 3080, () => {
