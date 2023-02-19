@@ -2,14 +2,13 @@ package eu.przemyslawrutkowski.pokolei.controller;
 
 import eu.przemyslawrutkowski.pokolei.entity.Amenities;
 import eu.przemyslawrutkowski.pokolei.entity.Car;
-import eu.przemyslawrutkowski.pokolei.errors.ResourceNotFoundException;
+import eu.przemyslawrutkowski.pokolei.exception.ResourceNotFoundException;
 import eu.przemyslawrutkowski.pokolei.repository.CarRepository;
 import eu.przemyslawrutkowski.pokolei.repository.TrainCarOrderRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 import java.util.List;
 
 @RestController

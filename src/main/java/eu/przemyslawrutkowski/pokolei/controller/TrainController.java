@@ -2,7 +2,7 @@ package eu.przemyslawrutkowski.pokolei.controller;
 
 import eu.przemyslawrutkowski.pokolei.dto.*;
 import eu.przemyslawrutkowski.pokolei.entity.*;
-import eu.przemyslawrutkowski.pokolei.errors.ResourceNotFoundException;
+import eu.przemyslawrutkowski.pokolei.exception.ResourceNotFoundException;
 import eu.przemyslawrutkowski.pokolei.repository.*;
 import eu.przemyslawrutkowski.pokolei.service.CarService;
 import eu.przemyslawrutkowski.pokolei.service.LocomotiveService;

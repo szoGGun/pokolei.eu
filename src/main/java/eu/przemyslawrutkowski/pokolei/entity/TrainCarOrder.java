@@ -1,6 +1,5 @@
 package eu.przemyslawrutkowski.pokolei.entity;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;

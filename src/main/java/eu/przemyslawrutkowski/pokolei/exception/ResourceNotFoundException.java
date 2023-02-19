@@ -1,4 +1,4 @@
-package eu.przemyslawrutkowski.pokolei.errors;
+package eu.przemyslawrutkowski.pokolei.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;

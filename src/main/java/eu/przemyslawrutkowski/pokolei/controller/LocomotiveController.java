@@ -1,7 +1,7 @@
 package eu.przemyslawrutkowski.pokolei.controller;
 
 import eu.przemyslawrutkowski.pokolei.entity.Locomotive;
-import eu.przemyslawrutkowski.pokolei.errors.ResourceNotFoundException;
+import eu.przemyslawrutkowski.pokolei.exception.ResourceNotFoundException;
 import eu.przemyslawrutkowski.pokolei.repository.LocomotiveRepository;
 import eu.przemyslawrutkowski.pokolei.repository.TrainLocomotiveOrderRepository;
 import lombok.AllArgsConstructor;
