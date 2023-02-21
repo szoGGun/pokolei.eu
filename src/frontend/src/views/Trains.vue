@@ -86,7 +86,7 @@ export default {
         name: 'trainComposition',
         params: {
           trainId: trainId,
-          trainFullName: trainNumber + trainName,
+          trainFullName: trainNumber + ' ' + trainName,
         }
       });
     }
