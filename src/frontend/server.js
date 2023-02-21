@@ -46,13 +46,11 @@ async function handleStationRequest(req, res, endpointFunc) {
         return false;
     }
 
-    // check if station and amount are set
     if (!station || !amount) {
         res.status(400).send([{direction: "Please enter a station name!", id: "0", platform: "400", line: {mode: "special"}, when: new Date(2069, 1, 1)}]);
         return false;
     }
 
-    // Check if a cookie with the station name already exists
     if (req.cookies && req.cookies.stationName) {
         res.status(429).send([{direction: "Too many requests!", id: "0", platform: "429", line: {mode: "special"}, when: new Date(2069, 1, 1)}]);
         return;
