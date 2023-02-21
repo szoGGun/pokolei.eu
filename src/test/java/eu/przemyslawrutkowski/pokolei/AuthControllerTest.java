@@ -78,4 +78,35 @@ public class AuthControllerTest {
         assertEquals(400, response.getStatusCode().value());
         assertEquals("Invalid username or password", response.getBody());
     }
+
+    @Test
+    public void testAuthenticateUserIncorrectPassword() {
+        when(userRepository.findByUsername("testuser")).thenReturn(user);
+
+        ResponseEntity<?> response = authController.authenticateUser(loginUser);
+
+        assertEquals(400, response.getStatusCode().value());
+        assertEquals("Invalid username or password", response.getBody());
+    }
+
+
+    @Test
+    public void testAuthenticateUserMissingUsername() {
+        loginUser.setUsername(null);
+
+        ResponseEntity<?> response = authController.authenticateUser(loginUser);
+
+        assertEquals(400, response.getStatusCode().value());
+        assertEquals("Invalid username or password", response.getBody());
+    }
+
+    @Test
+    public void testAuthenticateUserMissingPassword() {
+        loginUser.setPassword(null);
+
+        ResponseEntity<?> response = authController.authenticateUser(loginUser);
+
+        assertEquals(400, response.getStatusCode().value());
+        assertEquals("Invalid username or password", response.getBody());
+    }
 }
